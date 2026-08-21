@@ -1,0 +1,5572 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CSS Craft Playground - Minecraft</title>
+
+<style>
+
+/* =========================================================
+   VARIÁVEIS
+========================================================= */
+
+:root {
+
+  --bg: #101820;
+  --panel: #17232d;
+  --panel-2: #20313d;
+
+  --green: #5faa32;
+  --green-dark: #3d7721;
+
+  --text: #f4f4f4;
+  --muted: #aebbc4;
+  --accent: #55c7ff;
+
+  --flex-direction: row;
+  --flex-wrap: nowrap;
+  --justify-content: space-between;
+  --align-items: center;
+  --gap: 12px;
+
+  --grid-columns: 3;
+  --grid-rows: auto;
+  --grid-gap: 12px;
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+
+  margin: 0;
+
+  font-family:
+    "Trebuchet MS",
+    Arial,
+    sans-serif;
+
+  color: var(--text);
+
+  background:
+
+    linear-gradient(
+      rgba(10,18,24,.92),
+      rgba(10,18,24,.97)
+    ),
+
+    repeating-linear-gradient(
+      0deg,
+      #15232d 0,
+      #15232d 31px,
+      #192a35 32px
+    );
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+header {
+
+  min-height: 100px;
+
+  padding: 20px 28px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 20px;
+
+  background: #111b22;
+
+  border-bottom: 5px solid #0a0f13;
+
+  box-shadow:
+    0 6px 0 rgba(0,0,0,.25);
+}
+
+.logo {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 15px;
+}
+
+
+.minecraft-block {
+
+  width: 52px;
+  height: 52px;
+
+  position: relative;
+
+  background:
+
+    linear-gradient(
+      #69b83d 0 30%,
+      #7b4d26 30% 100%
+    );
+
+  border: 4px solid #050805;
+
+  box-shadow:
+
+    inset 4px 4px rgba(255,255,255,.12),
+    inset -5px -5px rgba(0,0,0,.25),
+    4px 4px rgba(0,0,0,.3);
+
+  image-rendering: pixelated;
+}
+
+.minecraft-block::before {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  opacity: .35;
+
+  background:
+
+    linear-gradient(
+      135deg,
+      transparent 30%,
+      rgba(255,255,255,.12) 31% 38%,
+      transparent 39%
+    );
+
+  background-size: 16px 16px;
+}
+
+.minecraft-block::after {
+
+  content: "";
+
+  position: absolute;
+
+  left: 4px;
+  right: 4px;
+
+  top: 11px;
+
+  height: 4px;
+
+  background:
+    rgba(255,255,255,.08);
+}
+
+h1 {
+
+  margin: 0;
+
+  font-size:
+    clamp(22px, 4vw, 34px);
+
+  text-transform: uppercase;
+
+  text-shadow:
+    3px 3px #000;
+}
+
+.subtitle {
+
+  margin: 3px 0 0;
+
+  color: #9cafba;
+
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   LAYOUT
+========================================================= */
+
+.app {
+
+  display: grid;
+
+  grid-template-columns:
+    310px minmax(0,1fr);
+
+  min-height:
+    calc(100vh - 100px);
+}
+
+.sidebar {
+
+  padding: 18px;
+
+  background:
+    linear-gradient(
+      #131e26,
+      #10191f
+    );
+
+  border-right: 4px solid #0a1015;
+}
+
+.content {
+
+  padding: 24px;
+
+  min-width: 0;
+}
+
+
+/* =========================================================
+   TÍTULOS
+========================================================= */
+
+.section-title {
+
+  color: #fff;
+
+  margin: 0 0 15px;
+
+  font-size: 18px;
+
+  text-transform: uppercase;
+
+  text-shadow:
+    2px 2px #000;
+}
+
+
+/* =========================================================
+   TABS
+========================================================= */
+
+.tabs {
+
+  display: grid;
+
+  gap: 8px;
+
+  margin-bottom: 22px;
+}
+
+.tab {
+
+  border: 3px solid #05080a;
+
+  background: #344651;
+
+  color: white;
+
+  padding: 11px 13px;
+
+  cursor: pointer;
+
+  font-weight: bold;
+
+  text-align: left;
+
+  box-shadow:
+
+    inset 2px 2px rgba(255,255,255,.1),
+    inset -2px -2px rgba(0,0,0,.2),
+    3px 3px #000;
+
+  transition: .12s;
+}
+
+.tab:hover {
+
+  background: #49606c;
+
+  transform:
+    translateY(-2px);
+}
+
+.tab.active {
+
+  background:
+
+    linear-gradient(
+      #70b842,
+      #4e8e29
+    );
+
+  border-color:
+    #213d13;
+
+  box-shadow:
+
+    inset 2px 2px rgba(255,255,255,.18),
+    inset -2px -2px rgba(0,0,0,.25),
+    3px 3px #000;
+}
+
+
+/* =========================================================
+   CONTROLES
+========================================================= */
+
+.controls {
+  display: none;
+}
+
+.controls.active {
+  display: block;
+}
+
+.control {
+  margin-bottom: 17px;
+}
+
+.control label {
+
+  display: flex;
+
+  justify-content:
+    space-between;
+
+  gap: 10px;
+
+  font-size: 12px;
+
+  font-weight: bold;
+
+  color: #d9e3e8;
+
+  margin-bottom: 6px;
+}
+
+.value {
+  color: #67d4ff;
+}
+
+select,
+input[type="range"] {
+  width: 100%;
+}
+
+select {
+
+  color: white;
+
+  background: #263742;
+
+  border: 2px solid #0a1116;
+
+  padding: 9px;
+
+  outline: none;
+
+  cursor: pointer;
+
+  box-shadow:
+    inset 2px 2px rgba(255,255,255,.06);
+}
+
+select:focus {
+  border-color:
+    var(--green);
+}
+
+input[type="range"] {
+
+  accent-color:
+    var(--green);
+
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   INVENTÁRIO
+========================================================= */
+
+.inventory {
+
+  margin-top: 20px;
+
+  padding: 12px;
+
+  background:
+    linear-gradient(
+      #192830,
+      #10191f
+    );
+
+  border: 3px solid #05080a;
+
+  box-shadow:
+
+    inset 0 0 0 2px #293b45,
+    3px 3px #000;
+}
+
+.inventory-title {
+
+  display: flex;
+
+  justify-content:
+    space-between;
+
+  align-items: center;
+
+  margin-bottom: 10px;
+
+  font-size: 13px;
+
+  font-weight: bold;
+
+  text-shadow:
+    2px 2px #000;
+}
+
+.inventory-title span {
+
+  color: #72d5ff;
+
+  font-size: 10px;
+}
+
+.inventory-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4,1fr);
+
+  gap: 6px;
+}
+
+.inventory-item {
+
+  position: relative;
+
+  aspect-ratio: 1;
+
+  border: 3px solid #05080a;
+
+  background: #263942;
+
+  cursor: pointer;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  box-shadow:
+
+    inset 2px 2px rgba(255,255,255,.12),
+    inset -3px -3px rgba(0,0,0,.35),
+    2px 2px #000;
+
+  transition:
+    transform .1s,
+    border-color .1s,
+    filter .1s;
+}
+
+.inventory-item:hover {
+
+  transform:
+    translateY(-2px);
+
+  filter:
+    brightness(1.15);
+}
+
+.inventory-item.selected {
+
+  border-color: #ffe66b;
+
+  box-shadow:
+
+    0 0 0 2px #8c6910,
+    inset 2px 2px rgba(255,255,255,.2),
+    inset -3px -3px rgba(0,0,0,.35),
+    2px 2px #000;
+
+  transform:
+    translateY(-2px);
+}
+
+.inventory-item .mini-pixel {
+
+  width: 35px;
+  height: 35px;
+
+  border: 3px solid #111;
+
+  box-shadow:
+
+    inset 3px 3px rgba(255,255,255,.15),
+    inset -3px -3px rgba(0,0,0,.3);
+}
+
+.inventory-name {
+
+  position: absolute;
+
+  bottom: 2px;
+  left: 2px;
+  right: 2px;
+
+  text-align: center;
+
+  font-size: 7px;
+
+  font-weight: bold;
+
+  color: white;
+
+  text-shadow:
+    1px 1px #000;
+}
+
+
+/* =========================================================
+   TEXTURAS
+========================================================= */
+
+.grass {
+  background:
+    linear-gradient(
+      180deg,
+      #5dab34 0 30%,
+      #70451f 30% 100%
+    );
+}
+
+.stone {
+  background:
+    linear-gradient(
+      135deg,
+      #999 0 20%,
+      transparent 21%
+    ),
+    linear-gradient(
+      45deg,
+      #777,
+      #555
+    );
+}
+
+.diamond {
+  background:
+    linear-gradient(
+      135deg,
+      #dfffff,
+      #21bfd0 45%,
+      #086b79
+    );
+}
+
+.wood {
+  background:
+    repeating-linear-gradient(
+      90deg,
+      #71401f 0 5px,
+      #a96b38 5px 10px,
+      #633719 10px 15px
+    );
+}
+
+.emerald {
+  background:
+    linear-gradient(
+      135deg,
+      #9bffb0,
+      #20bf60 45%,
+      #075d31
+    );
+}
+
+.dirt {
+  background:
+    linear-gradient(
+      180deg,
+      #688c39 0 20%,
+      #674427 20%
+    );
+}
+
+.gold {
+  background:
+    linear-gradient(
+      135deg,
+      #fff29b,
+      #e4ae20 45%,
+      #8d5d05
+    );
+}
+
+.redstone {
+  background:
+    linear-gradient(
+      135deg,
+      #ff6b55,
+      #d9281d 45%,
+      #650b09
+    );
+}
+
+.obsidian {
+  background:
+    linear-gradient(
+      135deg,
+      #55416f,
+      #251c38 50%,
+      #100d1b
+    );
+}
+
+
+/* =========================================================
+   BOTÃO RESET
+========================================================= */
+
+.reset {
+
+  width: 100%;
+
+  margin-top: 15px;
+
+  padding: 12px;
+
+  border: 3px solid #080c0f;
+
+  background:
+
+    linear-gradient(
+      #b23b3b,
+      #842727
+    );
+
+  color: white;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+  box-shadow:
+    3px 3px #000;
+
+  transition: .12s;
+}
+
+.reset:hover {
+
+  background:
+
+    linear-gradient(
+      #c94a4a,
+      #9c3030
+    );
+}
+
+.reset:active {
+
+  transform:
+    translate(2px,2px);
+
+  box-shadow:
+    1px 1px #000;
+}
+
+.reset:disabled {
+
+  opacity: .6;
+
+  cursor:
+    not-allowed;
+}
+
+
+/* =========================================================
+   MODO SOBREVIVÊNCIA
+========================================================= */
+
+.break-section {
+
+  position: relative;
+
+  margin-top: 20px;
+
+  padding: 15px;
+
+  background:
+
+    linear-gradient(
+      #111b22,
+      #0c1419
+    );
+
+  border: 3px solid #05080a;
+
+  text-align: center;
+
+  box-shadow:
+
+    inset 0 0 0 2px #263943,
+    3px 3px #000;
+
+  overflow: hidden;
+}
+
+.break-section h3 {
+
+  margin: 0 0 12px;
+
+  font-size: 14px;
+
+  text-shadow:
+    2px 2px #000;
+}
+
+.break-stage {
+
+  position: relative;
+
+  width: 150px;
+  height: 135px;
+
+  margin: 0 auto;
+}
+
+
+/* =========================================================
+   BLOCO QUEBRÁVEL
+========================================================= */
+
+.break-block {
+
+  width: 100px;
+  height: 100px;
+
+  position: absolute;
+
+  left: 25px;
+  top: 15px;
+
+  background:
+
+    linear-gradient(
+      #63a934 0 30%,
+      #79502a 30%
+    );
+
+  border: 5px solid #171717;
+
+  box-shadow:
+
+    inset 7px 7px rgba(255,255,255,.12),
+    inset -7px -7px rgba(0,0,0,.35),
+    6px 6px rgba(0,0,0,.5);
+
+  transform-origin:
+    center;
+
+  z-index: 2;
+
+  image-rendering:
+    pixelated;
+}
+
+.break-block::before,
+.break-block::after {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  opacity: 0;
+
+  pointer-events: none;
+}
+
+.break-block::before {
+
+  background:
+
+    linear-gradient(
+      125deg,
+      transparent 43%,
+      #111 44%,
+      #111 47%,
+      transparent 48%
+    ),
+
+    linear-gradient(
+      35deg,
+      transparent 55%,
+      #111 56%,
+      #111 59%,
+      transparent 60%
+    );
+}
+
+.break-block::after {
+
+  background:
+
+    linear-gradient(
+      75deg,
+      transparent 30%,
+      #111 31%,
+      #111 34%,
+      transparent 35%
+    ),
+
+    linear-gradient(
+      160deg,
+      transparent 65%,
+      #111 66%,
+      #111 69%,
+      transparent 70%
+    );
+}
+
+.breaking {
+
+  animation:
+    breakingBlock
+    .9s
+    steps(6);
+}
+
+.breaking::before {
+
+  animation:
+    cracks
+    .9s
+    steps(4)
+    forwards;
+}
+
+.breaking::after {
+
+  animation:
+    cracks2
+    .9s
+    steps(4)
+    forwards;
+}
+
+@keyframes breakingBlock {
+
+  0% {
+    transform:
+      scale(1)
+      rotate(0deg);
+  }
+
+  15% {
+    transform:
+      scale(1.03)
+      rotate(-2deg);
+  }
+
+  30% {
+    transform:
+      scale(.97)
+      rotate(2deg);
+  }
+
+  45% {
+    transform:
+      scale(1.05)
+      rotate(-2deg);
+  }
+
+  60% {
+    transform:
+      scale(.95)
+      rotate(2deg);
+  }
+
+  75% {
+    transform:
+      scale(1.02);
+  }
+
+  90% {
+    transform:
+      scale(.7);
+
+    opacity: .7;
+  }
+
+  100% {
+
+    transform:
+      scale(0);
+
+    opacity: 0;
+  }
+}
+
+@keyframes cracks {
+
+  0% {
+    opacity: 0;
+  }
+
+  30% {
+    opacity: .3;
+  }
+
+  60% {
+    opacity: .65;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes cracks2 {
+
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: .2;
+  }
+
+  75% {
+    opacity: .7;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+
+/* =========================================================
+   PARTÍCULAS DO BLOCO
+========================================================= */
+
+.particle {
+
+  position: absolute;
+
+  width: 9px;
+  height: 9px;
+
+  background:
+    #79502a;
+
+  border: 2px solid #30200f;
+
+  pointer-events: none;
+
+  z-index: 10;
+
+  image-rendering:
+    pixelated;
+}
+
+.particle.p1 {
+  animation:
+    particle1 .8s ease-out forwards;
+}
+
+.particle.p2 {
+  animation:
+    particle2 .8s ease-out forwards;
+}
+
+.particle.p3 {
+  animation:
+    particle3 .8s ease-out forwards;
+}
+
+.particle.p4 {
+  animation:
+    particle4 .8s ease-out forwards;
+}
+
+.particle.p5 {
+  animation:
+    particle5 .8s ease-out forwards;
+}
+
+.particle.p6 {
+  animation:
+    particle6 .8s ease-out forwards;
+}
+
+@keyframes particle1 {
+
+  to {
+    transform:
+      translate(-55px,-65px)
+      rotate(180deg);
+
+    opacity: 0;
+  }
+}
+
+@keyframes particle2 {
+
+  to {
+    transform:
+      translate(55px,-60px)
+      rotate(220deg);
+
+    opacity: 0;
+  }
+}
+
+@keyframes particle3 {
+
+  to {
+    transform:
+      translate(-70px,15px)
+      rotate(270deg);
+
+    opacity: 0;
+  }
+}
+
+@keyframes particle4 {
+
+  to {
+    transform:
+      translate(70px,20px)
+      rotate(150deg);
+
+    opacity: 0;
+  }
+}
+
+@keyframes particle5 {
+
+  to {
+    transform:
+      translate(-35px,65px)
+      rotate(300deg);
+
+    opacity: 0;
+  }
+}
+
+@keyframes particle6 {
+
+  to {
+    transform:
+      translate(40px,65px)
+      rotate(250deg);
+
+    opacity: 0;
+  }
+}
+
+
+/* =========================================================
+   BOTÃO QUEBRAR
+========================================================= */
+
+.break-button {
+
+  width: 100%;
+
+  padding: 13px;
+
+  border: 4px solid #171717;
+
+  background:
+
+    linear-gradient(
+      #70a941,
+      #4d842b
+    );
+
+  color: white;
+
+  font-weight: bold;
+
+  font-size: 14px;
+
+  cursor: pointer;
+
+  box-shadow:
+
+    inset 3px 3px
+    rgba(255,255,255,.15),
+
+    inset -4px -4px
+    rgba(0,0,0,.3),
+
+    4px 4px #000;
+
+  transition:
+    transform .08s,
+    background .15s;
+}
+
+.break-button:hover {
+
+  background:
+
+    linear-gradient(
+      #83ba4e,
+      #5d9635
+    );
+}
+
+.break-button:active {
+
+  transform:
+    translate(3px,3px);
+
+  box-shadow:
+
+    inset 3px 3px
+    rgba(0,0,0,.25),
+
+    1px 1px #000;
+}
+
+.break-button:disabled {
+
+  cursor: not-allowed;
+
+  filter:
+    grayscale(.3);
+
+  opacity: .8;
+}
+
+.block-status {
+
+  min-height: 18px;
+
+  margin-bottom: 10px;
+
+  color: #9db0ba;
+
+  font-size: 11px;
+}
+
+.break-counter {
+
+  margin-top: 9px;
+
+  color: #ffe66b;
+
+  font-size: 11px;
+
+  font-weight: bold;
+}
+
+
+/* =========================================================
+   PREVIEW
+========================================================= */
+
+.preview-area {
+
+  background: #0d151b;
+
+  border: 4px solid #05090c;
+
+  padding: 18px;
+
+  box-shadow:
+
+    inset 0 0 0 2px #293944,
+    4px 4px rgba(0,0,0,.25);
+}
+
+.preview-header {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content:
+    space-between;
+
+  margin-bottom: 15px;
+
+  gap: 10px;
+}
+
+.preview-header h2 {
+
+  margin: 0;
+
+  font-size: 19px;
+
+  text-shadow:
+    2px 2px #000;
+}
+
+.badge {
+
+  padding: 5px 9px;
+
+  background: #263943;
+
+  color: #8fdcff;
+
+  border: 2px solid #0a1115;
+
+  font-size: 11px;
+
+  font-weight: bold;
+}
+
+
+/* =========================================================
+   VIEWPORT
+========================================================= */
+
+.viewport {
+
+  width: 100%;
+
+  max-width: 100%;
+
+  margin: auto;
+
+  min-height: 470px;
+
+  overflow: auto;
+
+  resize: horizontal;
+
+  background:
+
+    linear-gradient(
+      rgba(44,84,38,.35),
+      rgba(16,28,38,.75)
+    ),
+
+    #263e4a;
+
+  border: 5px solid #080d11;
+
+  position: relative;
+
+  transition:
+    width .2s;
+
+  box-shadow:
+    inset 0 0 0 2px
+    rgba(255,255,255,.05);
+}
+
+.viewport::before {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  opacity: .16;
+
+  background-image:
+
+    linear-gradient(
+      #fff 1px,
+      transparent 1px
+    ),
+
+    linear-gradient(
+      90deg,
+      #fff 1px,
+      transparent 1px
+    );
+
+  background-size:
+    32px 32px;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   CENÁRIO
+========================================================= */
+
+.scene {
+
+  position: relative;
+
+  min-height: 470px;
+
+  padding: 35px;
+
+  overflow: hidden;
+}
+
+.sky {
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+
+    linear-gradient(
+      #6ec6ef 0%,
+      #a7e2f5 55%,
+      #6da84c 55%,
+      #426d31 100%
+    );
+}
+
+.cloud {
+
+  position: absolute;
+
+  width: 100px;
+  height: 22px;
+
+  background: #fff;
+
+  opacity: .8;
+
+  box-shadow:
+
+    25px -15px #fff,
+    50px -10px #fff,
+    72px 0 #fff;
+
+  image-rendering:
+    pixelated;
+}
+
+.cloud.one {
+
+  top: 50px;
+  left: 40px;
+}
+
+.cloud.two {
+
+  top: 115px;
+  right: 80px;
+
+  transform:
+    scale(.7);
+}
+
+
+/* =========================================================
+   FLEX / GRID
+========================================================= */
+
+.demo {
+
+  position: relative;
+
+  z-index: 2;
+
+  min-height: 350px;
+
+  padding: 25px;
+
+  display: flex;
+
+  flex-direction:
+    var(--flex-direction);
+
+  flex-wrap:
+    var(--flex-wrap);
+
+  justify-content:
+    var(--justify-content);
+
+  align-items:
+    var(--align-items);
+
+  gap:
+    var(--gap);
+
+  border:
+    4px dashed
+    rgba(255,255,255,.75);
+
+  background:
+    rgba(0,0,0,.16);
+}
+
+.grid-demo {
+
+  position: relative;
+
+  z-index: 2;
+
+  min-height: 350px;
+
+  padding: 25px;
+
+  display: grid;
+
+  grid-template-columns:
+
+    repeat(
+      var(--grid-columns),
+      minmax(80px,1fr)
+    );
+
+  grid-template-rows:
+    var(--grid-rows);
+
+  gap:
+    var(--grid-gap);
+
+  border:
+    4px dashed
+    rgba(255,255,255,.75);
+
+  background:
+    rgba(0,0,0,.16);
+}
+
+.grid-demo .block {
+  width: auto;
+}
+
+
+/* =========================================================
+   BLOCOS
+========================================================= */
+
+.block {
+
+  --block-light:
+    rgba(255,255,255,.18);
+
+  --block-dark:
+    rgba(0,0,0,.38);
+
+  position: relative;
+
+  min-width: 110px;
+
+  width: 130px;
+
+  min-height: 150px;
+
+  padding: 12px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 10px;
+
+  background:
+
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.08) 0 25%,
+      transparent 25% 50%,
+      rgba(0,0,0,.08) 50% 75%,
+      transparent 75%
+    ),
+
+    #79502a;
+
+  background-size:
+    18px 18px;
+
+  border: 4px solid #17100a;
+
+  box-shadow:
+
+    inset 4px 4px 0
+    var(--block-light),
+
+    inset -5px -5px 0
+    var(--block-dark),
+
+    5px 5px 0
+    rgba(0,0,0,.45);
+
+  image-rendering:
+    pixelated;
+
+  transition:
+
+    transform .16s steps(2),
+    filter .16s,
+    box-shadow .16s;
+}
+
+.block.selected {
+
+  outline:
+    4px solid #ffe66b;
+
+  outline-offset: 5px;
+
+  animation:
+    selectedPulse
+    .8s
+    infinite alternate;
+}
+
+@keyframes selectedPulse {
+
+  from {
+    filter:
+      brightness(1);
+  }
+
+  to {
+    filter:
+      brightness(1.2);
+  }
+}
+
+.block::before {
+
+  content: "";
+
+  position: absolute;
+
+  top: 4px;
+  left: 4px;
+  right: 4px;
+
+  height: 8px;
+
+  background:
+    rgba(255,255,255,.08);
+
+  pointer-events: none;
+}
+
+.block::after {
+
+  content: "";
+
+  position: absolute;
+
+  bottom: 4px;
+  left: 4px;
+  right: 4px;
+
+  height: 8px;
+
+  background:
+    rgba(0,0,0,.12);
+
+  pointer-events: none;
+}
+
+.block:hover {
+
+  transform:
+    translateY(-6px)
+    scale(1.025);
+
+  filter:
+    brightness(1.08);
+
+  box-shadow:
+
+    inset 4px 4px 0
+    rgba(255,255,255,.16),
+
+    inset -5px -5px 0
+    rgba(0,0,0,.3),
+
+    6px 8px 0
+    rgba(0,0,0,.45);
+}
+
+.block .pixel {
+
+  position: relative;
+
+  width: 70px;
+  height: 70px;
+
+  border: 4px solid #121212;
+
+  box-shadow:
+
+    inset 5px 5px 0
+    rgba(255,255,255,.16),
+
+    inset -6px -6px 0
+    rgba(0,0,0,.35),
+
+    4px 4px 0
+    rgba(0,0,0,.35);
+
+  image-rendering:
+    pixelated;
+
+  overflow: hidden;
+}
+
+.block .pixel::before {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  opacity: .42;
+
+  background:
+
+    linear-gradient(
+      45deg,
+      transparent 40%,
+      rgba(255,255,255,.13) 41% 46%,
+      transparent 47%
+    ),
+
+    linear-gradient(
+      -45deg,
+      transparent 55%,
+      rgba(0,0,0,.14) 56% 61%,
+      transparent 62%
+    );
+
+  background-size:
+    17px 17px;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   CORES
+========================================================= */
+
+.block[data-type="grass"] {
+  background: #654321;
+}
+
+.block[data-type="grass"] .pixel {
+
+  background:
+
+    linear-gradient(
+      145deg,
+      transparent 0 20%,
+      #4b8e2c 21% 25%,
+      transparent 26%
+    ),
+
+    linear-gradient(
+      25deg,
+      transparent 0 55%,
+      #79bd45 56% 62%,
+      transparent 63%
+    ),
+
+    #58a832;
+}
+
+.block[data-type="stone"] {
+  background: #555;
+}
+
+.block[data-type="stone"] .pixel {
+
+  background:
+
+    linear-gradient(
+      145deg,
+      #999 0 25%,
+      transparent 25%
+    ),
+
+    linear-gradient(
+      35deg,
+      transparent 0 60%,
+      #5d5d5d 61% 68%,
+      transparent 69%
+    ),
+
+    #777;
+}
+
+.block[data-type="diamond"] {
+
+  background:
+    linear-gradient(
+      135deg,
+      #347d91,
+      #226273
+    );
+}
+
+.block[data-type="diamond"] .pixel {
+
+  background:
+
+    linear-gradient(
+      135deg,
+      #eaffff 0 12%,
+      #79e6ef 13% 25%,
+      #2fc5d4 26% 55%,
+      #168b9c 56% 75%,
+      #0c6574 76%
+    );
+
+  box-shadow:
+
+    inset 5px 5px 0
+    rgba(255,255,255,.4),
+
+    inset -6px -6px 0
+    rgba(0,0,0,.35),
+
+    0 0 10px
+    rgba(67,220,235,.35);
+}
+
+.block[data-type="wood"] {
+  background: #603719;
+}
+
+.block[data-type="wood"] .pixel {
+
+  background:
+
+    repeating-linear-gradient(
+      90deg,
+      #7d4927 0 7px,
+      #a96838 7px 13px,
+      #754321 13px 20px
+    );
+}
+
+.block[data-type="emerald"] {
+
+  background:
+    linear-gradient(
+      135deg,
+      #26733f,
+      #174c2c
+    );
+}
+
+.block[data-type="emerald"] .pixel {
+
+  background:
+
+    linear-gradient(
+      135deg,
+      #91f3a8 0 12%,
+      #45d878 13% 28%,
+      #20b85d 29% 55%,
+      #118b47 56% 75%,
+      #075d30 76%
+    );
+}
+
+.block[data-type="dirt"] {
+  background: #53351f;
+}
+
+.block[data-type="dirt"] .pixel {
+
+  background:
+
+    linear-gradient(
+      180deg,
+      #6f8e3c 0 18%,
+      #674527 18% 100%
+    );
+}
+
+.block[data-type="gold"] {
+  background: #8a5c05;
+}
+
+.block[data-type="gold"] .pixel {
+
+  background:
+
+    linear-gradient(
+      135deg,
+      #fff6a5,
+      #f0bd25 35%,
+      #b57906 65%,
+      #6b4300
+    );
+}
+
+.block[data-type="redstone"] {
+  background: #68130e;
+}
+
+.block[data-type="redstone"] .pixel {
+
+  background:
+
+    radial-gradient(
+      circle at 30% 35%,
+      #ff8b73 0 8%,
+      transparent 9%
+    ),
+
+    radial-gradient(
+      circle at 70% 65%,
+      #ff3326 0 10%,
+      transparent 11%
+    ),
+
+    linear-gradient(
+      135deg,
+      #ed3b29,
+      #790c09
+    );
+}
+
+.block[data-type="obsidian"] {
+  background: #211a31;
+}
+
+.block[data-type="obsidian"] .pixel {
+
+  background:
+
+    linear-gradient(
+      135deg,
+      #675080,
+      #302442 45%,
+      #100d19
+    );
+}
+
+.block strong {
+
+  position: relative;
+
+  z-index: 2;
+
+  padding: 4px 7px;
+
+  color: #fff;
+
+  font-size: 12px;
+
+  letter-spacing: .5px;
+
+  text-align: center;
+
+  text-shadow:
+
+    2px 2px 0 #000,
+    -1px 0 #000,
+    0 -1px #000;
+
+  background:
+    rgba(0,0,0,.18);
+
+  border:
+    2px solid
+    rgba(0,0,0,.18);
+}
+
+.block:active {
+
+  transform:
+    translateY(-1px)
+    scale(.97);
+}
+
+.grid-demo .block {
+
+  min-width: 0;
+
+  width: 100%;
+}
+
+
+/* =========================================================
+   CÓDIGO
+========================================================= */
+
+.code-panel {
+
+  margin-top: 20px;
+
+  background: #0a0f13;
+
+  border: 4px solid #05080a;
+
+  box-shadow:
+    4px 4px rgba(0,0,0,.25);
+}
+
+.code-title {
+
+  padding: 10px 13px;
+
+  background: #18252d;
+
+  border-bottom:
+    3px solid #05080a;
+
+  font-weight: bold;
+}
+
+pre {
+
+  margin: 0;
+
+  padding: 15px;
+
+  overflow: auto;
+
+  color: #b9f6c5;
+
+  font:
+    13px/1.7
+    Consolas,
+    monospace;
+}
+
+.keyword {
+  color: #63d8ff;
+}
+
+.property {
+  color: #ffd66b;
+}
+
+.value-code {
+  color: #8cff9c;
+}
+
+
+/* =========================================================
+   INFO
+========================================================= */
+
+.info {
+
+  margin-top: 18px;
+
+  padding: 16px;
+
+  border-left:
+    5px solid
+    var(--green);
+
+  background: #17242d;
+
+  color: #b9c8d1;
+
+  font-size: 14px;
+
+  line-height: 1.6;
+}
+
+.info strong {
+  color: white;
+}
+
+.info code {
+
+  color: #7ee6ff;
+
+  background:
+    rgba(0,0,0,.25);
+
+  padding: 2px 5px;
+}
+
+
+/* =========================================================
+   DISPOSITIVOS
+========================================================= */
+
+.device-buttons {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap: 6px;
+
+  margin-top: 8px;
+}
+
+.device-buttons button {
+
+  padding: 8px 4px;
+
+  background: #283b46;
+
+  color: white;
+
+  border: 2px solid #0b1115;
+
+  cursor: pointer;
+
+  font-size: 11px;
+
+  box-shadow:
+    2px 2px #000;
+}
+
+.device-buttons button:hover {
+  background:
+    var(--green);
+}
+
+
+/* =========================================================
+   =========================================================
+   TNT RESET
+   =========================================================
+========================================================= */
+
+/*
+   Camada que aparece por cima de toda a aplicação.
+*/
+
+.tnt-overlay {
+
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 99999;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  background:
+    rgba(0,0,0,0);
+
+  pointer-events: none;
+
+  opacity: 0;
+
+  transition:
+    opacity .2s,
+    background .2s;
+}
+
+.tnt-overlay.active {
+
+  opacity: 1;
+
+  background:
+    rgba(0,0,0,.18);
+
+  pointer-events: auto;
+}
+
+
+/* =========================================================
+   TNT
+========================================================= */
+
+.tnt {
+
+  position: relative;
+
+  width: 150px;
+  height: 150px;
+
+  transform:
+    scale(0);
+
+  image-rendering:
+    pixelated;
+
+  filter:
+    drop-shadow(10px 12px 0 rgba(0,0,0,.5));
+}
+
+.tnt-overlay.active .tnt {
+
+  animation:
+    tntAppear
+    .45s
+    cubic-bezier(.17,.84,.44,1)
+    forwards;
+}
+
+@keyframes tntAppear {
+
+  0% {
+    transform:
+      scale(0)
+      rotate(-15deg);
+  }
+
+  70% {
+    transform:
+      scale(1.12)
+      rotate(3deg);
+  }
+
+  100% {
+    transform:
+      scale(1)
+      rotate(0);
+  }
+}
+
+
+/* =========================================================
+   CORPO DA TNT
+========================================================= */
+
+.tnt-body {
+
+  position: absolute;
+
+  left: 10px;
+  right: 10px;
+
+  top: 25px;
+  bottom: 5px;
+
+  background:
+
+    repeating-linear-gradient(
+      0deg,
+      #b51f18 0 14px,
+      #8f1712 14px 20px
+    );
+
+  border: 7px solid #17100e;
+
+  box-shadow:
+
+    inset 8px 8px rgba(255,255,255,.16),
+    inset -9px -9px rgba(0,0,0,.4),
+    7px 7px #000;
+
+  overflow: hidden;
+}
+
+
+/*
+   Faixas brancas características da TNT
+*/
+
+.tnt-body::before {
+
+  content: "";
+
+  position: absolute;
+
+  left: -5px;
+  right: -5px;
+
+  top: 43px;
+
+  height: 57px;
+
+  background:
+    #eee;
+
+  border-top:
+    5px solid #1b1b1b;
+
+  border-bottom:
+    5px solid #1b1b1b;
+
+  box-shadow:
+    inset 0 5px rgba(255,255,255,.25),
+    inset 0 -5px rgba(0,0,0,.12);
+}
+
+
+/* =========================================================
+   TEXTO TNT
+========================================================= */
+
+.tnt-label {
+
+  position: absolute;
+
+  left: 0;
+  right: 0;
+
+  top: 52px;
+
+  z-index: 5;
+
+  color: #161616;
+
+  text-align: center;
+
+  font-family:
+    Impact,
+    "Arial Black",
+    sans-serif;
+
+  font-size: 34px;
+
+  line-height: 45px;
+
+  letter-spacing: 2px;
+
+  text-shadow:
+    2px 2px rgba(255,255,255,.4);
+}
+
+
+/* =========================================================
+   TOPO DA TNT
+========================================================= */
+
+.tnt-top {
+
+  position: absolute;
+
+  width: 110px;
+  height: 35px;
+
+  left: 20px;
+  top: 5px;
+
+  background:
+    #cf2a21;
+
+  border:
+    6px solid #17100e;
+
+  box-shadow:
+    inset 5px 5px rgba(255,255,255,.15),
+    inset -5px -5px rgba(0,0,0,.35);
+
+  z-index: 4;
+}
+
+
+/* =========================================================
+   PAVIO
+========================================================= */
+
+.tnt-fuse {
+
+  position: absolute;
+
+  left: 73px;
+
+  top: -28px;
+
+  width: 9px;
+  height: 38px;
+
+  background:
+
+    repeating-linear-gradient(
+      0deg,
+      #c58a43 0 5px,
+      #6f421c 5px 9px
+    );
+
+  border:
+    3px solid #17100e;
+
+  transform-origin:
+    bottom center;
+
+  z-index: 10;
+}
+
+.tnt-overlay.active .tnt-fuse {
+
+  animation:
+    fuseBurn
+    1.8s
+    linear
+    forwards;
+}
+
+@keyframes fuseBurn {
+
+  0% {
+    transform:
+      rotate(-7deg);
+  }
+
+  25% {
+    transform:
+      rotate(7deg);
+  }
+
+  50% {
+    transform:
+      rotate(-7deg);
+  }
+
+  75% {
+    transform:
+      rotate(7deg);
+  }
+
+  100% {
+    transform:
+      rotate(-4deg)
+      scaleY(.65);
+  }
+}
+
+
+/* =========================================================
+   FAÍSCA DO PAVIO
+========================================================= */
+
+.tnt-spark {
+
+  position: absolute;
+
+  top: -43px;
+  left: 67px;
+
+  width: 22px;
+  height: 22px;
+
+  background:
+    #ffea43;
+
+  border:
+    3px solid #ff7b00;
+
+  box-shadow:
+
+    0 0 8px #ffb300,
+    0 0 18px #ff5e00;
+
+  transform:
+    rotate(45deg);
+
+  z-index: 20;
+}
+
+.tnt-overlay.active .tnt-spark {
+
+  animation:
+    spark .16s steps(2) infinite;
+}
+
+@keyframes spark {
+
+  0% {
+    transform:
+      rotate(45deg)
+      scale(.65);
+    background: #fff8a0;
+  }
+
+  50% {
+    transform:
+      rotate(45deg)
+      scale(1.2);
+    background: #fff;
+  }
+
+  100% {
+    transform:
+      rotate(45deg)
+      scale(.75);
+    background: #ff8c00;
+  }
+}
+
+
+/* =========================================================
+   PULSO DA TNT
+========================================================= */
+
+.tnt-overlay.active .tnt {
+
+  animation:
+
+    tntAppear .45s
+    cubic-bezier(.17,.84,.44,1)
+    forwards,
+
+    tntShake .12s
+    steps(2)
+    1.2s
+    infinite;
+}
+
+@keyframes tntShake {
+
+  0% {
+    transform:
+      scale(1)
+      translate(0,0);
+  }
+
+  25% {
+    transform:
+      scale(1.025)
+      translate(-2px,1px);
+  }
+
+  50% {
+    transform:
+      scale(1)
+      translate(2px,-1px);
+  }
+
+  75% {
+    transform:
+      scale(1.025)
+      translate(-1px,2px);
+  }
+
+  100% {
+    transform:
+      scale(1)
+      translate(0,0);
+  }
+}
+
+
+/* =========================================================
+   EXPLOSÃO
+========================================================= */
+
+.tnt-explosion {
+
+  position: absolute;
+
+  width: 20px;
+  height: 20px;
+
+  left: 50%;
+  top: 50%;
+
+  transform:
+    translate(-50%,-50%)
+    scale(0);
+
+  pointer-events: none;
+
+  z-index: 100;
+}
+
+.tnt-explosion.active {
+
+  animation:
+    explosionFlash
+    .75s
+    ease-out
+    forwards;
+}
+
+@keyframes explosionFlash {
+
+  0% {
+    transform:
+      translate(-50%,-50%)
+      scale(0);
+
+    opacity: 1;
+  }
+
+  20% {
+    transform:
+      translate(-50%,-50%)
+      scale(4);
+
+    opacity: 1;
+  }
+
+  45% {
+    transform:
+      translate(-50%,-50%)
+      scale(8);
+
+    opacity: .95;
+  }
+
+  100% {
+    transform:
+      translate(-50%,-50%)
+      scale(15);
+
+    opacity: 0;
+  }
+}
+
+
+/* =========================================================
+   BOLA CENTRAL DA EXPLOSÃO
+========================================================= */
+
+.explosion-core {
+
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 70px;
+  height: 70px;
+
+  transform:
+    translate(-50%,-50%);
+
+  background:
+
+    radial-gradient(
+      circle,
+      #fff 0 12%,
+      #ffe94a 13% 30%,
+      #ff9d00 31% 55%,
+      #ef3b16 56% 75%,
+      transparent 76%
+    );
+
+  image-rendering:
+    pixelated;
+}
+
+
+/* =========================================================
+   PARTÍCULAS DA TNT
+========================================================= */
+
+.tnt-particle {
+
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 12px;
+  height: 12px;
+
+  border:
+    2px solid #28130b;
+
+  opacity: 1;
+
+  image-rendering:
+    pixelated;
+
+  pointer-events: none;
+
+  z-index: 101;
+}
+
+
+/* cores das partículas */
+
+.tnt-particle.red {
+  background: #b51f18;
+}
+
+.tnt-particle.red2 {
+  background: #e33a25;
+}
+
+.tnt-particle.white {
+  background: #eeeeee;
+}
+
+.tnt-particle.yellow {
+  background: #ffdd24;
+}
+
+.tnt-particle.orange {
+  background: #ff8618;
+}
+
+.tnt-particle.dark {
+  background: #382019;
+}
+
+.tnt-particle.fire {
+  background: #ff4a16;
+}
+
+
+/* =========================================================
+   ANIMAÇÕES DAS PARTÍCULAS
+========================================================= */
+
+.tnt-particle.p1 {
+  animation: tntP1 .8s steps(8) forwards;
+}
+
+.tnt-particle.p2 {
+  animation: tntP2 .8s steps(8) forwards;
+}
+
+.tnt-particle.p3 {
+  animation: tntP3 .8s steps(8) forwards;
+}
+
+.tnt-particle.p4 {
+  animation: tntP4 .8s steps(8) forwards;
+}
+
+.tnt-particle.p5 {
+  animation: tntP5 .8s steps(8) forwards;
+}
+
+.tnt-particle.p6 {
+  animation: tntP6 .8s steps(8) forwards;
+}
+
+.tnt-particle.p7 {
+  animation: tntP7 .8s steps(8) forwards;
+}
+
+.tnt-particle.p8 {
+  animation: tntP8 .8s steps(8) forwards;
+}
+
+.tnt-particle.p9 {
+  animation: tntP9 .8s steps(8) forwards;
+}
+
+.tnt-particle.p10 {
+  animation: tntP10 .8s steps(8) forwards;
+}
+
+.tnt-particle.p11 {
+  animation: tntP11 .8s steps(8) forwards;
+}
+
+.tnt-particle.p12 {
+  animation: tntP12 .8s steps(8) forwards;
+}
+
+.tnt-particle.p13 {
+  animation: tntP13 .8s steps(8) forwards;
+}
+
+.tnt-particle.p14 {
+  animation: tntP14 .8s steps(8) forwards;
+}
+
+.tnt-particle.p15 {
+  animation: tntP15 .8s steps(8) forwards;
+}
+
+.tnt-particle.p16 {
+  animation: tntP16 .8s steps(8) forwards;
+}
+
+
+@keyframes tntP1 {
+  to {
+    transform:
+      translate(-180px,-140px)
+      rotate(500deg);
+    opacity: 0;
+  }
+}
+
+@keyframes tntP2 {
+  to {
+    transform:
+      translate(-90px,-190px)
+      rotate(700deg);
+    opacity: 0;
+  }
+}
+
+@keyframes tntP3 {
+  to {
+    transform:
+      translate(40px,-210px)
+      rotate(600deg);
+    opacity: 0;
+  }
+}
+
+@keyframes tntP4 {
+  to {
+    transform:
+      translate(160px,-150px)
+      rotate(800deg);
+    opacity: 0;
+  }
+}
+
+@keyframes tntP5 {
+  to {
+    transform:
+      translate(220px,-40px)
+      rotate(600deg);
+    opacity: 0;
+  }
+}
+
+@keyframes tntP6 {
+  to {
+    transform:
+      translate(190px,90px)
+      rotate(900deg);
+    opacity: 0;
+  }
+}
+
+@keyframes tntP7 {
+  to {
+    transform:
+      translate(110px,180px)
+      rotate(500deg);
+    opacity: 0;
+  }
+}
+
+@keyframes tntP8 {
+  to {
+    transform:
+      translate(-20px,210px)
+      rotate(750deg);
+    opacity: 0;
+  }
+}
+
+@keyframes tntP9 {
+  to {
+    transform:
+      translate(-150px,180px)
+      rotate(650deg);
+    opacity: 0;
+  }
+}
+
+@keyframes tntP10 {
+  to {
+    transform:
+      translate(-220px,80px)
+      rotate(800deg);
+    opacity: 0;
+  }
+}
+
+@keyframes tntP11 {
+  to {
+    transform:
+      translate(-230px,-30px)
+      rotate(600deg);
+    opacity: 0;
+  }
+}
+
+@keyframes tntP12 {
+  to {
+    transform:
+      translate(-120px,-80px)
+      rotate(900deg);
+    opacity: 0;
+  }
+}
+
+@keyframes tntP13 {
+  to {
+    transform:
+      translate(90px,-90px)
+      rotate(700deg);
+    opacity: 0;
+  }
+}
+
+@keyframes tntP14 {
+  to {
+    transform:
+      translate(140px,40px)
+      rotate(800deg);
+    opacity: 0;
+  }
+}
+
+@keyframes tntP15 {
+  to {
+    transform:
+      translate(-80px,120px)
+      rotate(650deg);
+    opacity: 0;
+  }
+}
+
+@keyframes tntP16 {
+  to {
+    transform:
+      translate(20px,-120px)
+      rotate(1000deg);
+    opacity: 0;
+  }
+}
+
+
+/* =========================================================
+   FLASH DA EXPLOSÃO
+========================================================= */
+
+.explosion-flash {
+
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 99998;
+
+  background:
+    rgba(255,240,150,.75);
+
+  pointer-events: none;
+
+  opacity: 0;
+}
+
+.explosion-flash.active {
+
+  animation:
+    screenFlash
+    .55s
+    ease-out
+    forwards;
+}
+
+@keyframes screenFlash {
+
+  0% {
+    opacity: .85;
+  }
+
+  30% {
+    opacity: .5;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+
+/* =========================================================
+   TREMOR DA TELA
+========================================================= */
+
+body.exploding {
+
+  animation:
+    screenShake
+    .55s
+    steps(7);
+}
+
+@keyframes screenShake {
+
+  0% {
+    transform:
+      translate(0,0);
+  }
+
+  15% {
+    transform:
+      translate(-8px,5px);
+  }
+
+  30% {
+    transform:
+      translate(8px,-5px);
+  }
+
+  45% {
+    transform:
+      translate(-6px,-7px);
+  }
+
+  60% {
+    transform:
+      translate(7px,6px);
+  }
+
+  75% {
+    transform:
+      translate(-4px,2px);
+  }
+
+  100% {
+    transform:
+      translate(0,0);
+  }
+}
+
+
+/* =========================================================
+   TEXTO RESETANDO
+========================================================= */
+
+.tnt-message {
+
+  position: absolute;
+
+  left: 50%;
+
+  top: calc(50% + 115px);
+
+  transform:
+    translateX(-50%);
+
+  width: 100%;
+
+  text-align: center;
+
+  color: white;
+
+  font-size: 16px;
+
+  font-weight: bold;
+
+  text-shadow:
+    3px 3px #000;
+
+  opacity: 0;
+
+  z-index: 200;
+}
+
+.tnt-overlay.active .tnt-message {
+
+  animation:
+    messageAppear
+    .4s
+    .25s
+    forwards;
+}
+
+@keyframes messageAppear {
+
+  from {
+    opacity: 0;
+    transform:
+      translateX(-50%)
+      translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform:
+      translateX(-50%)
+      translateY(0);
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVO
+========================================================= */
+
+@media (max-width: 850px) {
+
+  .app {
+
+    grid-template-columns:
+      1fr;
+  }
+
+  .sidebar {
+
+    border-right: 0;
+
+    border-bottom:
+      4px solid #080d11;
+  }
+
+  .tabs {
+
+    grid-template-columns:
+      repeat(3,1fr);
+  }
+
+  .content {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 560px) {
+
+  header {
+    padding: 15px;
+  }
+
+  .app {
+    min-height: auto;
+  }
+
+  .content {
+    padding: 10px;
+  }
+
+  .tabs {
+
+    grid-template-columns:
+      1fr;
+  }
+
+  .scene,
+  .grid-demo {
+    padding: 12px;
+  }
+
+  .viewport {
+    min-height: 420px;
+  }
+
+  .logo .minecraft-block {
+
+    width: 42px;
+    height: 42px;
+  }
+
+  .subtitle {
+    display: none;
+  }
+
+  .preview-header {
+
+    align-items: flex-start;
+
+    flex-direction:
+      column;
+  }
+
+  .demo {
+    padding: 15px;
+  }
+
+  .tnt {
+
+    width: 120px;
+    height: 120px;
+  }
+
+  .tnt-label {
+
+    font-size: 27px;
+
+    top: 46px;
+  }
+
+  .tnt-top {
+
+    width: 88px;
+    height: 30px;
+
+    left: 16px;
+  }
+
+  .tnt-fuse {
+
+    left: 58px;
+  }
+
+  .tnt-spark {
+
+    left: 52px;
+  }
+
+  .tnt-message {
+
+    top: calc(50% + 100px);
+
+    font-size: 13px;
+  }
+}
+
+
+/* =========================================================
+   ACESSIBILIDADE
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+
+    animation-duration:
+      .01ms !important;
+
+    animation-iteration-count:
+      1 !important;
+
+    transition-duration:
+      .01ms !important;
+  }
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- =======================================================
+     HEADER
+======================================================= -->
+
+<header>
+
+  <div class="logo">
+
+    <div class="minecraft-block"></div>
+
+    <div>
+
+      <h1>
+        CSS Craft Playground
+      </h1>
+
+      <p class="subtitle">
+        Aprenda Flexbox, Grid e Media Queries construindo seu mundo
+      </p>
+
+    </div>
+
+  </div>
+
+  <div class="badge">
+    CSS EM TEMPO REAL
+  </div>
+
+</header>
+
+
+<!-- =======================================================
+     APLICAÇÃO
+======================================================= -->
+
+<div class="app">
+
+
+<!-- =====================================================
+     SIDEBAR
+====================================================== -->
+
+<aside class="sidebar">
+
+  <h2 class="section-title">
+    ⛏️ Ferramentas
+  </h2>
+
+
+  <div class="tabs">
+
+    <button
+      class="tab active"
+      data-panel="flex">
+
+      🧱 Flexbox
+
+    </button>
+
+    <button
+      class="tab"
+      data-panel="grid">
+
+      🗺️ Grid
+
+    </button>
+
+    <button
+      class="tab"
+      data-panel="media">
+
+      📱 Media Queries
+
+    </button>
+
+  </div>
+
+
+<!-- =================================================
+     FLEXBOX
+================================================== -->
+
+<div
+  class="controls active"
+  id="flex">
+
+  <div class="control">
+
+    <label>
+
+      flex-direction
+
+      <span
+        class="value"
+        id="directionValue">
+
+        row
+
+      </span>
+
+    </label>
+
+    <select id="direction">
+
+      <option selected>row</option>
+
+      <option>row-reverse</option>
+
+      <option>column</option>
+
+      <option>column-reverse</option>
+
+    </select>
+
+  </div>
+
+
+  <div class="control">
+
+    <label>
+
+      flex-wrap
+
+      <span
+        class="value"
+        id="wrapValue">
+
+        nowrap
+
+      </span>
+
+    </label>
+
+    <select id="wrap">
+
+      <option selected>nowrap</option>
+
+      <option>wrap</option>
+
+      <option>wrap-reverse</option>
+
+    </select>
+
+  </div>
+
+
+  <div class="control">
+
+    <label>
+
+      justify-content
+
+      <span
+        class="value"
+        id="justifyValue">
+
+        space-between
+
+      </span>
+
+    </label>
+
+    <select id="justify">
+
+      <option>flex-start</option>
+      <option>center</option>
+      <option>flex-end</option>
+
+      <option selected>
+        space-between
+      </option>
+
+      <option>space-around</option>
+      <option>space-evenly</option>
+
+    </select>
+
+  </div>
+
+
+  <div class="control">
+
+    <label>
+
+      align-items
+
+      <span
+        class="value"
+        id="alignValue">
+
+        center
+
+      </span>
+
+    </label>
+
+    <select id="align">
+
+      <option>stretch</option>
+      <option>flex-start</option>
+
+      <option selected>
+        center
+      </option>
+
+      <option>flex-end</option>
+      <option>baseline</option>
+
+    </select>
+
+  </div>
+
+
+  <div class="control">
+
+    <label>
+
+      gap
+
+      <span class="value">
+
+        <span id="gapValue">
+          12
+        </span>px
+
+      </span>
+
+    </label>
+
+    <input
+      id="gap"
+      type="range"
+      min="0"
+      max="50"
+      value="12">
+
+  </div>
+
+</div>
+
+
+<!-- =================================================
+     GRID
+================================================== -->
+
+<div
+  class="controls"
+  id="grid">
+
+  <div class="control">
+
+    <label>
+
+      colunas
+
+      <span
+        class="value"
+        id="columnsValue">
+
+        3
+
+      </span>
+
+    </label>
+
+    <input
+      id="columns"
+      type="range"
+      min="1"
+      max="6"
+      value="3">
+
+  </div>
+
+
+  <div class="control">
+
+    <label>
+
+      gap
+
+      <span class="value">
+
+        <span id="gridGapValue">
+          12
+        </span>px
+
+      </span>
+
+    </label>
+
+    <input
+      id="gridGap"
+      type="range"
+      min="0"
+      max="40"
+      value="12">
+
+  </div>
+
+
+  <div class="control">
+
+    <label>
+
+      altura das linhas
+
+      <span
+        class="value"
+        id="rowsValue">
+
+        auto
+
+      </span>
+
+    </label>
+
+    <select id="rows">
+
+      <option selected>auto</option>
+
+      <option>100px</option>
+      <option>150px</option>
+      <option>200px</option>
+
+    </select>
+
+  </div>
+
+</div>
+
+
+<!-- =================================================
+     MEDIA QUERIES
+================================================== -->
+
+<div
+  class="controls"
+  id="media">
+
+  <div class="control">
+
+    <label>
+
+      tamanho da viewport
+
+      <span
+        class="value"
+        id="widthValue">
+
+        100%
+
+      </span>
+
+    </label>
+
+    <input
+      id="width"
+      type="range"
+      min="300"
+      max="1000"
+      value="1000">
+
+    <div class="device-buttons">
+
+      <button data-width="375">
+        📱 Mobile
+      </button>
+
+      <button data-width="768">
+        📲 Tablet
+      </button>
+
+      <button data-width="1000">
+        🖥️ Desktop
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div class="info">
+
+    <strong>
+      Media Queries:
+    </strong>
+
+    <br><br>
+
+    Reduza a largura da área de visualização e observe como o layout muda.
+
+    <br><br>
+
+    As regras
+    <code>@media</code>
+    adaptam a interface para telas menores.
+
+  </div>
+
+</div>
+
+
+<!-- =================================================
+     INVENTÁRIO
+================================================== -->
+
+<div class="inventory">
+
+  <div class="inventory-title">
+
+    <span>
+      🎒 INVENTÁRIO
+    </span>
+
+    <span>
+      CLIQUE PARA ESCOLHER
+    </span>
+
+  </div>
+
+
+  <div class="inventory-grid">
+
+
+    <button
+      class="inventory-item selected"
+      data-type="grass"
+      data-name="Grama">
+
+      <div class="mini-pixel grass"></div>
+
+      <span class="inventory-name">
+        GRAMA
+      </span>
+
+    </button>
+
+
+    <button
+      class="inventory-item"
+      data-type="stone"
+      data-name="Pedra">
+
+      <div class="mini-pixel stone"></div>
+
+      <span class="inventory-name">
+        PEDRA
+      </span>
+
+    </button>
+
+
+    <button
+      class="inventory-item"
+      data-type="diamond"
+      data-name="Diamante">
+
+      <div class="mini-pixel diamond"></div>
+
+      <span class="inventory-name">
+        DIAMANTE
+      </span>
+
+    </button>
+
+
+    <button
+      class="inventory-item"
+      data-type="wood"
+      data-name="Madeira">
+
+      <div class="mini-pixel wood"></div>
+
+      <span class="inventory-name">
+        MADEIRA
+      </span>
+
+    </button>
+
+
+    <button
+      class="inventory-item"
+      data-type="emerald"
+      data-name="Esmeralda">
+
+      <div class="mini-pixel emerald"></div>
+
+      <span class="inventory-name">
+        ESMERALDA
+      </span>
+
+    </button>
+
+
+    <button
+      class="inventory-item"
+      data-type="dirt"
+      data-name="Terra">
+
+      <div class="mini-pixel dirt"></div>
+
+      <span class="inventory-name">
+        TERRA
+      </span>
+
+    </button>
+
+
+    <button
+      class="inventory-item"
+      data-type="gold"
+      data-name="Ouro">
+
+      <div class="mini-pixel gold"></div>
+
+      <span class="inventory-name">
+        OURO
+      </span>
+
+    </button>
+
+
+    <button
+      class="inventory-item"
+      data-type="redstone"
+      data-name="Redstone">
+
+      <div class="mini-pixel redstone"></div>
+
+      <span class="inventory-name">
+        REDSTONE
+      </span>
+
+    </button>
+
+
+    <button
+      class="inventory-item"
+      data-type="obsidian"
+      data-name="Obsidiana">
+
+      <div class="mini-pixel obsidian"></div>
+
+      <span class="inventory-name">
+        OBSIDIANA
+      </span>
+
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- =================================================
+     MODO SOBREVIVÊNCIA
+================================================== -->
+
+<div class="break-section">
+
+  <h3>
+    ⛏️ MODO SOBREVIVÊNCIA
+  </h3>
+
+
+  <div class="break-stage">
+
+    <div
+      class="break-block"
+      id="breakBlock">
+    </div>
+
+  </div>
+
+
+  <div
+    class="block-status"
+    id="blockStatus">
+
+    🟩 Bloco de grama
+
+  </div>
+
+
+  <button
+    class="break-button"
+    id="breakButton">
+
+    ⛏️ QUEBRAR BLOCO
+
+  </button>
+
+
+  <div
+    class="break-counter"
+    id="breakCounter">
+
+    💥 Blocos quebrados: 0
+
+  </div>
+
+</div>
+
+
+<!-- =================================================
+     BOTÃO RESET
+================================================== -->
+
+<button
+  class="reset"
+  id="reset">
+
+  ↻ RESETAR PLAYGROUND
+
+</button>
+
+
+</aside>
+
+
+<!-- =====================================================
+     CONTEÚDO
+====================================================== -->
+
+<main class="content">
+
+
+<section class="preview-area">
+
+
+<div class="preview-header">
+
+  <h2>
+    🌎 Mundo de Testes
+  </h2>
+
+  <span
+    class="badge"
+    id="modeBadge">
+
+    FLEXBOX
+
+  </span>
+
+</div>
+
+
+<div
+  class="viewport"
+  id="viewport">
+
+
+<div class="scene">
+
+  <div class="sky"></div>
+
+  <div class="cloud one"></div>
+  <div class="cloud two"></div>
+
+
+  <div
+    class="demo"
+    id="demo">
+
+
+    <div
+      class="block"
+      data-type="grass"
+      data-name="Grama">
+
+      <div class="pixel"></div>
+
+      <strong>
+        GRAMA
+      </strong>
+
+    </div>
+
+
+    <div
+      class="block"
+      data-type="stone"
+      data-name="Pedra">
+
+      <div class="pixel"></div>
+
+      <strong>
+        PEDRA
+      </strong>
+
+    </div>
+
+
+    <div
+      class="block"
+      data-type="diamond"
+      data-name="Diamante">
+
+      <div class="pixel"></div>
+
+      <strong>
+        DIAMANTE
+      </strong>
+
+    </div>
+
+
+    <div
+      class="block"
+      data-type="wood"
+      data-name="Madeira">
+
+      <div class="pixel"></div>
+
+      <strong>
+        MADEIRA
+      </strong>
+
+    </div>
+
+
+    <div
+      class="block"
+      data-type="emerald"
+      data-name="Esmeralda">
+
+      <div class="pixel"></div>
+
+      <strong>
+        ESMERALDA
+      </strong>
+
+    </div>
+
+
+    <div
+      class="block"
+      data-type="dirt"
+      data-name="Terra">
+
+      <div class="pixel"></div>
+
+      <strong>
+        TERRA
+      </strong>
+
+    </div>
+
+
+  </div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =================================================
+     CÓDIGO
+================================================== -->
+
+<section class="code-panel">
+
+  <div class="code-title">
+
+    💻 CSS gerado em tempo real
+
+  </div>
+
+  <pre id="code"></pre>
+
+</section>
+
+
+<div class="info">
+
+  <strong>
+    💡 Como estudar:
+  </strong>
+
+  altere uma propriedade por vez e observe o resultado.
+
+  <br><br>
+
+  <strong>
+    🧱 Como alterar blocos:
+  </strong>
+
+  escolha um bloco no inventário e depois clique duas vezes em qualquer bloco do mundo.
+
+  <br><br>
+
+  <strong>
+    ⛏️ Como quebrar:
+  </strong>
+
+  clique em um bloco para selecioná-lo e pressione
+  <code>QUEBRAR BLOCO</code>.
+
+  <br><br>
+
+  <strong>
+    💣 Como resetar:
+  </strong>
+
+  pressione
+  <code>RESETAR PLAYGROUND</code>
+  e assista à TNT explodir.
+
+</div>
+
+
+</main>
+
+</div>
+
+
+<!-- =======================================================
+     TNT OVERLAY
+======================================================= -->
+
+<div
+  class="tnt-overlay"
+  id="tntOverlay">
+
+  <div
+    class="tnt"
+    id="tnt">
+
+    <div class="tnt-fuse"></div>
+
+    <div class="tnt-spark"></div>
+
+    <div class="tnt-top"></div>
+
+    <div class="tnt-body">
+
+      <div class="tnt-label">
+        TNT
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div
+    class="tnt-message"
+    id="tntMessage">
+
+    💣 RESETANDO O MUNDO...
+
+  </div>
+
+</div>
+
+
+<!-- =======================================================
+     EXPLOSÃO
+======================================================= -->
+
+<div
+  class="tnt-explosion"
+  id="tntExplosion">
+
+  <div class="explosion-core"></div>
+
+</div>
+
+
+<div
+  class="explosion-flash"
+  id="explosionFlash">
+</div>
+
+
+<script>
+
+/* =========================================================
+   ELEMENTOS
+========================================================= */
+
+const root =
+  document.documentElement;
+
+const demo =
+  document.getElementById("demo");
+
+const viewport =
+  document.getElementById("viewport");
+
+const code =
+  document.getElementById("code");
+
+const modeBadge =
+  document.getElementById("modeBadge");
+
+const breakBlock =
+  document.getElementById("breakBlock");
+
+const breakButton =
+  document.getElementById("breakButton");
+
+const blockStatus =
+  document.getElementById("blockStatus");
+
+const breakCounter =
+  document.getElementById("breakCounter");
+
+const resetButton =
+  document.getElementById("reset");
+
+const tntOverlay =
+  document.getElementById("tntOverlay");
+
+const tnt =
+  document.getElementById("tnt");
+
+const tntExplosion =
+  document.getElementById("tntExplosion");
+
+const explosionFlash =
+  document.getElementById("explosionFlash");
+
+
+/* =========================================================
+   ESTADO
+========================================================= */
+
+let selectedBlock = null;
+
+let selectedType = "grass";
+
+let selectedName = "Grama";
+
+let isBreaking = false;
+
+let isResetting = false;
+
+let brokenBlocks = 0;
+
+
+/* =========================================================
+   PADRÕES
+========================================================= */
+
+const defaults = {
+
+  direction: "row",
+  wrap: "nowrap",
+  justify: "space-between",
+  align: "center",
+  gap: 12,
+
+  columns: 3,
+  gridGap: 12,
+  rows: "auto",
+
+  width: 1000
+
+};
+
+
+/* =========================================================
+   NOMES
+========================================================= */
+
+const blockNames = {
+
+  grass: "Grama",
+  stone: "Pedra",
+  diamond: "Diamante",
+  wood: "Madeira",
+  emerald: "Esmeralda",
+  dirt: "Terra",
+  gold: "Ouro",
+  redstone: "Redstone",
+  obsidian: "Obsidiana"
+
+};
+
+
+/* =========================================================
+   CÓDIGO
+========================================================= */
+
+function updateCode() {
+
+  const active =
+    document
+      .querySelector(".tab.active")
+      .dataset.panel;
+
+
+  if (active === "flex") {
+
+    code.innerHTML = `
+
+<span class="keyword">.container</span> {
+
+  <span class="property">display</span>:
+    <span class="value-code">flex</span>;
+
+  <span class="property">flex-direction</span>:
+    <span class="value-code">${getComputedStyle(root)
+      .getPropertyValue("--flex-direction")
+      .trim()}</span>;
+
+  <span class="property">flex-wrap</span>:
+    <span class="value-code">${getComputedStyle(root)
+      .getPropertyValue("--flex-wrap")
+      .trim()}</span>;
+
+  <span class="property">justify-content</span>:
+    <span class="value-code">${getComputedStyle(root)
+      .getPropertyValue("--justify-content")
+      .trim()}</span>;
+
+  <span class="property">align-items</span>:
+    <span class="value-code">${getComputedStyle(root)
+      .getPropertyValue("--align-items")
+      .trim()}</span>;
+
+  <span class="property">gap</span>:
+    <span class="value-code">${getComputedStyle(root)
+      .getPropertyValue("--gap")
+      .trim()}</span>;
+
+}`;
+
+  }
+
+
+  if (active === "grid") {
+
+    code.innerHTML = `
+
+<span class="keyword">.container</span> {
+
+  <span class="property">display</span>:
+    <span class="value-code">grid</span>;
+
+  <span class="property">
+    grid-template-columns
+  </span>:
+
+    <span class="value-code">
+      repeat(
+        ${getComputedStyle(root)
+          .getPropertyValue("--grid-columns")
+          .trim()},
+        1fr
+      )
+    </span>;
+
+  <span class="property">
+    grid-template-rows
+  </span>:
+
+    <span class="value-code">
+      ${getComputedStyle(root)
+        .getPropertyValue("--grid-rows")
+        .trim()}
+    </span>;
+
+  <span class="property">gap</span>:
+
+    <span class="value-code">
+      ${getComputedStyle(root)
+        .getPropertyValue("--grid-gap")
+        .trim()}
+    </span>;
+
+}`;
+
+  }
+
+
+  if (active === "media") {
+
+    code.innerHTML = `
+
+<span class="keyword">@media</span>
+(
+<span class="property">max-width</span>:
+<span class="value-code">850px</span>
+) {
+
+  <span class="keyword">.app</span> {
+
+    <span class="property">
+      grid-template-columns
+    </span>:
+
+    <span class="value-code">
+      1fr
+    </span>;
+
+  }
+
+}
+
+
+<span class="keyword">@media</span>
+(
+<span class="property">max-width</span>:
+<span class="value-code">560px</span>
+) {
+
+  <span class="keyword">.tabs</span> {
+
+    <span class="property">
+      grid-template-columns
+    </span>:
+
+    <span class="value-code">
+      1fr
+    </span>;
+
+  }
+
+}`;
+
+  }
+
+}
+
+
+/* =========================================================
+   FLEXBOX
+========================================================= */
+
+function setFlex() {
+
+  demo.classList.remove(
+    "grid-demo"
+  );
+
+  demo.classList.add(
+    "flex-demo"
+  );
+
+  demo.style.display =
+    "flex";
+
+
+  root.style.setProperty(
+    "--flex-direction",
+    document.getElementById("direction").value
+  );
+
+  root.style.setProperty(
+    "--flex-wrap",
+    document.getElementById("wrap").value
+  );
+
+  root.style.setProperty(
+    "--justify-content",
+    document.getElementById("justify").value
+  );
+
+  root.style.setProperty(
+    "--align-items",
+    document.getElementById("align").value
+  );
+
+  root.style.setProperty(
+    "--gap",
+    document.getElementById("gap").value + "px"
+  );
+
+
+  document.getElementById(
+    "directionValue"
+  ).textContent =
+    document.getElementById("direction").value;
+
+
+  document.getElementById(
+    "wrapValue"
+  ).textContent =
+    document.getElementById("wrap").value;
+
+
+  document.getElementById(
+    "justifyValue"
+  ).textContent =
+    document.getElementById("justify").value;
+
+
+  document.getElementById(
+    "alignValue"
+  ).textContent =
+    document.getElementById("align").value;
+
+
+  document.getElementById(
+    "gapValue"
+  ).textContent =
+    document.getElementById("gap").value;
+
+
+  modeBadge.textContent =
+    "FLEXBOX";
+
+
+  updateCode();
+
+}
+
+
+/* =========================================================
+   GRID
+========================================================= */
+
+function setGrid() {
+
+  demo.classList.remove(
+    "flex-demo"
+  );
+
+  demo.classList.add(
+    "grid-demo"
+  );
+
+  demo.style.display =
+    "grid";
+
+
+  root.style.setProperty(
+    "--grid-columns",
+    document.getElementById("columns").value
+  );
+
+  root.style.setProperty(
+    "--grid-gap",
+    document.getElementById("gridGap").value + "px"
+  );
+
+  root.style.setProperty(
+    "--grid-rows",
+    document.getElementById("rows").value
+  );
+
+
+  document.getElementById(
+    "columnsValue"
+  ).textContent =
+    document.getElementById("columns").value;
+
+
+  document.getElementById(
+    "gridGapValue"
+  ).textContent =
+    document.getElementById("gridGap").value;
+
+
+  document.getElementById(
+    "rowsValue"
+  ).textContent =
+    document.getElementById("rows").value;
+
+
+  modeBadge.textContent =
+    "CSS GRID";
+
+
+  updateCode();
+
+}
+
+
+/* =========================================================
+   MEDIA
+========================================================= */
+
+function setMedia() {
+
+  const width =
+    document.getElementById("width").value;
+
+
+  viewport.style.width =
+    width >= 1000
+      ? "100%"
+      : width + "px";
+
+
+  document.getElementById(
+    "widthValue"
+  ).textContent =
+    width >= 1000
+      ? "100%"
+      : width + "px";
+
+
+  modeBadge.textContent =
+    "MEDIA QUERIES";
+
+
+  updateCode();
+
+}
+
+
+/* =========================================================
+   EVENTOS FLEX
+========================================================= */
+
+[
+  "direction",
+  "wrap",
+  "justify",
+  "align",
+  "gap"
+].forEach(id => {
+
+  document
+    .getElementById(id)
+    .addEventListener(
+      "input",
+      setFlex
+    );
+
+  document
+    .getElementById(id)
+    .addEventListener(
+      "change",
+      setFlex
+    );
+
+});
+
+
+/* =========================================================
+   EVENTOS GRID
+========================================================= */
+
+[
+  "columns",
+  "gridGap",
+  "rows"
+].forEach(id => {
+
+  document
+    .getElementById(id)
+    .addEventListener(
+      "input",
+      setGrid
+    );
+
+  document
+    .getElementById(id)
+    .addEventListener(
+      "change",
+      setGrid
+    );
+
+});
+
+
+/* =========================================================
+   MEDIA
+========================================================= */
+
+document
+  .getElementById("width")
+  .addEventListener(
+    "input",
+    setMedia
+  );
+
+
+document
+  .querySelectorAll("[data-width]")
+  .forEach(button => {
+
+    button.addEventListener(
+      "click",
+      () => {
+
+        document
+          .getElementById("width")
+          .value =
+            button.dataset.width;
+
+        setMedia();
+
+      }
+    );
+
+  });
+
+
+/* =========================================================
+   TABS
+========================================================= */
+
+document
+  .querySelectorAll(".tab")
+  .forEach(tab => {
+
+    tab.addEventListener(
+      "click",
+      () => {
+
+        document
+          .querySelectorAll(".tab")
+          .forEach(t => {
+
+            t.classList.remove(
+              "active"
+            );
+
+          });
+
+
+        document
+          .querySelectorAll(".controls")
+          .forEach(c => {
+
+            c.classList.remove(
+              "active"
+            );
+
+          });
+
+
+        tab.classList.add(
+          "active"
+        );
+
+
+        const panel =
+          tab.dataset.panel;
+
+
+        document
+          .getElementById(panel)
+          .classList.add(
+            "active"
+          );
+
+
+        if (panel === "flex") {
+          setFlex();
+        }
+
+        if (panel === "grid") {
+          setGrid();
+        }
+
+        if (panel === "media") {
+          setMedia();
+        }
+
+      }
+    );
+
+  });
+
+
+/* =========================================================
+   INVENTÁRIO
+========================================================= */
+
+document
+  .querySelectorAll(".inventory-item")
+  .forEach(item => {
+
+    item.addEventListener(
+      "click",
+      () => {
+
+        document
+          .querySelectorAll(".inventory-item")
+          .forEach(i => {
+
+            i.classList.remove(
+              "selected"
+            );
+
+          });
+
+
+        item.classList.add(
+          "selected"
+        );
+
+
+        selectedType =
+          item.dataset.type;
+
+
+        selectedName =
+          item.dataset.name;
+
+
+        blockStatus.textContent =
+          "🎒 Bloco escolhido: " +
+          selectedName;
+
+
+        updateBreakBlock();
+
+      }
+    );
+
+  });
+
+
+/* =========================================================
+   ATUALIZAR BLOCO
+========================================================= */
+
+function updateBreakBlock() {
+
+  breakBlock.className =
+    "break-block";
+
+  breakBlock.style.background =
+    "";
+
+  breakBlock.dataset.type =
+    selectedType;
+
+
+  const colors = {
+
+    grass:
+      "linear-gradient(#63a934 0 30%,#79502a 30%)",
+
+    stone:
+      "linear-gradient(135deg,#999,#555)",
+
+    diamond:
+      "linear-gradient(135deg,#eaffff,#2fc5d4,#0c6574)",
+
+    wood:
+      "repeating-linear-gradient(90deg,#7d4927 0 7px,#a96838 7px 13px,#754321 13px 20px)",
+
+    emerald:
+      "linear-gradient(135deg,#91f3a8,#20b85d,#075d30)",
+
+    dirt:
+      "linear-gradient(180deg,#6f8e3c 0 18%,#674527 18%)",
+
+    gold:
+      "linear-gradient(135deg,#fff6a5,#f0bd25,#8d5d05)",
+
+    redstone:
+      "linear-gradient(135deg,#ff6b55,#d9281d,#650b09)",
+
+    obsidian:
+      "linear-gradient(135deg,#675080,#302442,#100d19)"
+
+  };
+
+
+  breakBlock.style.background =
+    colors[selectedType] ||
+    colors.grass;
+
+}
+
+
+/* =========================================================
+   SELEÇÃO DOS BLOCOS
+========================================================= */
+
+function attachBlockEvents() {
+
+  document
+    .querySelectorAll(".block")
+    .forEach(block => {
+
+      block.addEventListener(
+        "click",
+        event => {
+
+          event.stopPropagation();
+
+          selectWorldBlock(block);
+
+        }
+      );
+
+    });
+
+}
+
+
+function selectWorldBlock(block) {
+
+  if (selectedBlock) {
+
+    selectedBlock.classList.remove(
+      "selected"
+    );
+
+  }
+
+
+  selectedBlock =
+    block;
+
+
+  selectedBlock.classList.add(
+    "selected"
+  );
+
+
+  const name =
+    block.dataset.name ||
+    blockNames[block.dataset.type];
+
+
+  blockStatus.textContent =
+    "🎯 Selecionado: " +
+    name;
+
+
+  breakBlock.dataset.type =
+    block.dataset.type;
+
+
+  updateBreakPreviewFromWorld(
+    block.dataset.type
+  );
+
+}
+
+
+function updateBreakPreviewFromWorld(type) {
+
+  const oldType =
+    selectedType;
+
+  selectedType =
+    type;
+
+  updateBreakBlock();
+
+  selectedType =
+    oldType;
+
+}
+
+
+/* =========================================================
+   TROCAR BLOCO
+========================================================= */
+
+function changeWorldBlock(block) {
+
+  block.dataset.type =
+    selectedType;
+
+  block.dataset.name =
+    selectedName;
+
+  const strong =
+    block.querySelector("strong");
+
+  if (strong) {
+
+    strong.textContent =
+      selectedName.toUpperCase();
+
+  }
+
+  blockStatus.textContent =
+    "🔄 Bloco alterado para: " +
+    selectedName;
+
+}
+
+
+/* =========================================================
+   DUPLO CLIQUE
+========================================================= */
+
+document
+  .querySelectorAll(".block")
+  .forEach(block => {
+
+    block.addEventListener(
+      "dblclick",
+      event => {
+
+        event.stopPropagation();
+
+        changeWorldBlock(
+          block
+        );
+
+      }
+    );
+
+  });
+
+
+attachBlockEvents();
+
+
+/* =========================================================
+   BOTÃO QUEBRAR
+========================================================= */
+
+breakButton.addEventListener(
+
+  "click",
+
+  () => {
+
+    if (
+      isBreaking ||
+      isResetting
+    ) {
+      return;
+    }
+
+
+    isBreaking = true;
+
+
+    breakButton.disabled =
+      true;
+
+    breakButton.textContent =
+      "⛏️ QUEBRANDO...";
+
+
+    blockStatus.textContent =
+      "⚠️ Quebrando " +
+      selectedName +
+      "...";
+
+
+    breakBlock.classList.remove(
+      "breaking"
+    );
+
+
+    void breakBlock.offsetWidth;
+
+
+    breakBlock.classList.add(
+      "breaking"
+    );
+
+
+    for (
+      let i = 1;
+      i <= 6;
+      i++
+    ) {
+
+      const particle =
+        document.createElement(
+          "span"
+        );
+
+
+      particle.className =
+        `particle p${i}`;
+
+
+      particle.style.left =
+        "70px";
+
+
+      particle.style.top =
+        "60px";
+
+
+      breakBlock
+        .parentElement
+        .appendChild(
+          particle
+        );
+
+
+      setTimeout(
+        () => particle.remove(),
+        900
+      );
+
+    }
+
+
+    setTimeout(
+      () => {
+
+        brokenBlocks++;
+
+
+        breakCounter.textContent =
+          "💥 Blocos quebrados: " +
+          brokenBlocks;
+
+
+        blockStatus.textContent =
+          "💨 " +
+          selectedName +
+          " quebrado!";
+
+
+        breakButton.textContent =
+          "🔨 RECRIANDO BLOCO...";
+
+
+        if (selectedBlock) {
+
+          selectedBlock.style.opacity =
+            ".25";
+
+          selectedBlock.style.transform =
+            "scale(.75)";
+
+        }
+
+      },
+      850
+    );
+
+
+    setTimeout(
+      () => {
+
+        breakBlock.classList.remove(
+          "breaking"
+        );
+
+
+        breakButton.disabled =
+          false;
+
+
+        breakButton.textContent =
+          "⛏️ QUEBRAR BLOCO";
+
+
+        blockStatus.textContent =
+          "🟩 Bloco de " +
+          selectedName;
+
+
+        breakBlock.style.opacity =
+          "1";
+
+
+        if (selectedBlock) {
+
+          selectedBlock.style.opacity =
+            "";
+
+          selectedBlock.style.transform =
+            "";
+
+        }
+
+
+        isBreaking =
+          false;
+
+      },
+      1800
+    );
+
+  }
+
+);
+
+
+/* =========================================================
+   CRIAR PARTÍCULAS DA TNT
+========================================================= */
+
+function createTntParticles() {
+
+  const colors = [
+    "red",
+    "red2",
+    "white",
+    "yellow",
+    "orange",
+    "dark",
+    "fire"
+  ];
+
+
+  for (
+    let i = 1;
+    i <= 16;
+    i++
+  ) {
+
+    const particle =
+      document.createElement("span");
+
+
+    particle.className =
+      "tnt-particle " +
+      colors[
+        Math.floor(
+          Math.random() *
+          colors.length
+        )
+      ] +
+      " p" +
+      i;
+
+
+    /*
+       Pequena variação de tamanho
+       para deixar a explosão mais
+       orgânica.
+    */
+
+    const size =
+      7 +
+      Math.floor(
+        Math.random() * 9
+      );
+
+
+    particle.style.width =
+      size + "px";
+
+    particle.style.height =
+      size + "px";
+
+
+    /*
+       O ponto inicial recebe uma
+       pequena variação aleatória.
+    */
+
+    particle.style.marginLeft =
+      (Math.random() * 20 - 10) +
+      "px";
+
+    particle.style.marginTop =
+      (Math.random() * 20 - 10) +
+      "px";
+
+
+    document.body.appendChild(
+      particle
+    );
+
+
+    setTimeout(
+      () => {
+
+        particle.remove();
+
+      },
+      900
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   EXPLOSÃO DA TNT
+========================================================= */
+
+function explodeTnt() {
+
+  /*
+     Remove a TNT
+  */
+
+  tnt.style.display =
+    "none";
+
+
+  /*
+     Cria partículas
+  */
+
+  createTntParticles();
+
+
+  /*
+     Ativa explosão
+  */
+
+  tntExplosion.classList.remove(
+    "active"
+  );
+
+  explosionFlash.classList.remove(
+    "active"
+  );
+
+
+  void tntExplosion.offsetWidth;
+
+
+  tntExplosion.classList.add(
+    "active"
+  );
+
+  explosionFlash.classList.add(
+    "active"
+  );
+
+
+  /*
+     Tremor da página
+  */
+
+  document.body.classList.add(
+    "exploding"
+  );
+
+
+  /*
+     Depois da animação,
+     remove o tremor.
+  */
+
+  setTimeout(
+    () => {
+
+      document.body.classList.remove(
+        "exploding"
+      );
+
+    },
+    600
+  );
+
+
+  /*
+     Depois da explosão,
+     executa o reset.
+  */
+
+  setTimeout(
+    () => {
+
+      resetPlayground();
+
+      tntOverlay.classList.remove(
+        "active"
+      );
+
+      tntExplosion.classList.remove(
+        "active"
+      );
+
+      explosionFlash.classList.remove(
+        "active"
+      );
+
+      tnt.style.display =
+        "";
+
+      isResetting =
+        false;
+
+      resetButton.disabled =
+        false;
+
+      resetButton.textContent =
+        "↻ RESETAR PLAYGROUND";
+
+    },
+    850
+  );
+
+}
+
+
+/* =========================================================
+   RESET VISUAL
+========================================================= */
+
+function resetPlayground() {
+
+  /*
+     RESTAURA FLEX
+  */
+
+  document.getElementById(
+    "direction"
+  ).value =
+    defaults.direction;
+
+
+  document.getElementById(
+    "wrap"
+  ).value =
+    defaults.wrap;
+
+
+  document.getElementById(
+    "justify"
+  ).value =
+    defaults.justify;
+
+
+  document.getElementById(
+    "align"
+  ).value =
+    defaults.align;
+
+
+  document.getElementById(
+    "gap"
+  ).value =
+    defaults.gap;
+
+
+  /*
+     RESTAURA GRID
+  */
+
+  document.getElementById(
+    "columns"
+  ).value =
+    defaults.columns;
+
+
+  document.getElementById(
+    "gridGap"
+  ).value =
+    defaults.gridGap;
+
+
+  document.getElementById(
+    "rows"
+  ).value =
+    defaults.rows;
+
+
+  /*
+     RESTAURA MEDIA
+  */
+
+  document.getElementById(
+    "width"
+  ).value =
+    defaults.width;
+
+
+  viewport.style.width =
+    "100%";
+
+
+  /*
+     RESTAURA BLOCOS
+  */
+
+  const originalTypes = [
+
+    "grass",
+    "stone",
+    "diamond",
+    "wood",
+    "emerald",
+    "dirt"
+
+  ];
+
+
+  const originalNames = [
+
+    "Grama",
+    "Pedra",
+    "Diamante",
+    "Madeira",
+    "Esmeralda",
+    "Terra"
+
+  ];
+
+
+  document
+    .querySelectorAll(".block")
+    .forEach(
+      (block,index) => {
+
+        block.dataset.type =
+          originalTypes[index];
+
+        block.dataset.name =
+          originalNames[index];
+
+
+        const strong =
+          block.querySelector(
+            "strong"
+          );
+
+
+        if (strong) {
+
+          strong.textContent =
+            originalNames[index]
+              .toUpperCase();
+
+        }
+
+
+        block.style.opacity =
+          "";
+
+        block.style.transform =
+          "";
+
+        block.classList.remove(
+          "selected"
+        );
+
+      }
+    );
+
+
+  /*
+     REMOVE SELEÇÃO
+  */
+
+  selectedBlock =
+    null;
+
+
+  selectedType =
+    "grass";
+
+
+  selectedName =
+    "Grama";
+
+
+  /*
+     INVENTÁRIO
+  */
+
+  document
+    .querySelectorAll(
+      ".inventory-item"
+    )
+    .forEach(
+      item => {
+
+        item.classList.remove(
+          "selected"
+        );
+
+      }
+    );
+
+
+  const grassItem =
+    document.querySelector(
+      '.inventory-item[data-type="grass"]'
+    );
+
+
+  if (grassItem) {
+
+    grassItem.classList.add(
+      "selected"
+    );
+
+  }
+
+
+  /*
+     CONTADOR
+  */
+
+  brokenBlocks =
+    0;
+
+
+  breakCounter.textContent =
+    "💥 Blocos quebrados: 0";
+
+
+  blockStatus.textContent =
+    "🟩 Bloco de grama";
+
+
+  /*
+     BLOCO DA MÃO
+  */
+
+  updateBreakBlock();
+
+
+  /*
+     VOLTA PARA FLEXBOX
+  */
+
+  const flexTab =
+    document.querySelector(
+      '[data-panel="flex"]'
+    );
+
+
+  if (flexTab) {
+
+    flexTab.click();
+
+  }
+
+
+  setFlex();
+
+}
+
+
+/* =========================================================
+   RESET COM TNT
+========================================================= */
+
+resetButton.addEventListener(
+  "click",
+  () => {
+
+    /*
+       Impede clicar novamente
+       durante a animação.
+    */
+
+    if (isResetting) {
+      return;
+    }
+
+
+    isResetting =
+      true;
+
+
+    resetButton.disabled =
+      true;
+
+
+    resetButton.textContent =
+      "💣 TNT ARMADA...";
+
+
+    /*
+       Garante que a TNT esteja
+       em seu estado inicial.
+    */
+
+    tnt.style.display =
+      "";
+
+
+    tntExplosion.classList.remove(
+      "active"
+    );
+
+
+    explosionFlash.classList.remove(
+      "active"
+    );
+
+
+    document.body.classList.remove(
+      "exploding"
+    );
+
+
+    /*
+       Reinicia animações CSS.
+    */
+
+    tntOverlay.classList.remove(
+      "active"
+    );
+
+
+    void tntOverlay.offsetWidth;
+
+
+    tntOverlay.classList.add(
+      "active"
+    );
+
+
+    /*
+       Explode depois de
+       aproximadamente 1.8 segundos.
+    */
+
+    setTimeout(
+      () => {
+
+        explodeTnt();
+
+      },
+      1900
+    );
+
+  }
+);
+
+
+/* =========================================================
+   INICIALIZAÇÃO
+========================================================= */
+
+setFlex();
+
+updateBreakBlock();
+
+</script>
+
+</body>
+
+</html>
