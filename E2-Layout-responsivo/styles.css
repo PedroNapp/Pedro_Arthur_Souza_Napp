@@ -401,3 +401,97 @@ button:focus-visible {
 .prioridade {
     font-weight: bold;
 }
+
+/* =========================
+   TABLET
+   ========================= */
+
+/*
+   A partir de 700px os filtros passam
+   para duas colunas para aproveitar
+   melhor o espaço horizontal.
+*/
+
+@media (min-width: 700px) {
+
+    form {
+        display: grid;
+
+        grid-template-columns: 1fr 1fr;
+
+        gap: var(--espaco-2);
+    }
+
+    form > div {
+        grid-column: 1 / -1;
+    }
+
+    form fieldset {
+        min-width: 0;
+    }
+
+    form button {
+        grid-column: 1 / -1;
+
+        width: 12rem;
+    }
+}
+
+/* =========================
+   DESKTOP
+   ========================= */
+
+/*
+   A partir de 900px as quatro colunas
+   passam a ficar lado a lado, pois
+   existe espaço suficiente para manter
+   os cartões legíveis.
+*/
+
+@media (min-width: 900px) {
+
+    .quadro {
+        grid-template-columns:
+            repeat(4, minmax(0, 1fr));
+    }
+
+    .quadro > section {
+        min-height: 28rem;
+    }
+
+    .quadro article {
+        min-height: 11rem;
+    }
+}
+
+/* =========================
+   TELAS GRANDES
+   ========================= */
+
+/*
+   A partir de 1200px aumentamos os
+   espaços laterais para aproveitar
+   melhor telas maiores.
+*/
+
+@media (min-width: 1200px) {
+
+    header,
+    main,
+    footer {
+        padding-left: var(--espaco-3);
+        padding-right: var(--espaco-3);
+    }
+
+    main > section:first-child {
+        padding: var(--espaco-3);
+    }
+
+    .quadro {
+        gap: var(--espaco-3);
+    }
+
+    .quadro > section {
+        padding: var(--espaco-3);
+    }
+}
