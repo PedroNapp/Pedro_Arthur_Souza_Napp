@@ -71,3 +71,147 @@ main {
     margin: 0 auto;
     overflow-x: hidden;
 }
+
+/* =========================
+   BUSCA E FILTROS
+   ========================= */
+
+main > section:first-child {
+    padding: var(--espaco-3);
+
+    background-color: var(--cor-superficie);
+
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--raio);
+
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
+}
+
+main > section:first-child h2 {
+    margin-top: 0;
+    margin-bottom: var(--espaco-3);
+    font-size: 1.35rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espaco-2);
+}
+
+/* Campo de busca */
+
+form > div {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espaco-1);
+}
+
+label, 
+legend { 
+    float: left; 
+    width: 100%; 
+    padding: 0; 
+    margin-bottom: 
+    var(--espaco-1); 
+    font-weight: bold; }
+
+input[type="search"] {
+    width: 100%;
+    min-height: 2.75rem;
+
+    padding: var(--espaco-1) var(--espaco-2);
+
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--raio);
+
+    background-color: var(--cor-superficie);
+    color: var(--cor-texto);
+
+    font-size: 1rem;
+}
+
+input[type="search"]:focus {
+    border-color: var(--cor-andamento);
+}
+
+/* =========================
+   FILTROS
+   ========================= */
+
+fieldset {
+    display: flex;
+    flex-direction: column;
+
+    gap: var(--espaco-1);
+
+    min-width: 0;
+
+    margin: 0;
+    padding: var(--espaco-2);
+
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--raio);
+
+    background-color: var(--cor-fundo-filtro);
+}
+
+fieldset legend {
+    padding: 0 var(--espaco-1);
+    color: var(--cor-texto);
+}
+
+fieldset div {
+    display: flex;
+    align-items: center;
+
+    gap: var(--espaco-1);
+
+    min-height: 2rem;
+}
+
+input[type="radio"] {
+    width: 1.5rem;
+    height: 1.5rem;
+    flex-shrink: 0;
+}
+
+/* =========================
+   BOTÃO
+   ========================= */
+
+button {
+    width: 100%;
+    min-height: 3rem;
+
+    padding: var(--espaco-1) var(--espaco-2);
+
+    border: none;
+    border-radius: var(--raio);
+
+    background-color: var(--cor-andamento);
+    color: #ffffff;
+
+    font-size: 1rem;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #1d4ed8;
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+/* =========================
+   FOCO VISÍVEL
+   ========================= */
+
+input:focus-visible,
+button:focus-visible {
+    outline: 3px solid #005fcc;
+    outline-offset: 2px;
+}
