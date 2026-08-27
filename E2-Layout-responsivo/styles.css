@@ -53,6 +53,7 @@ footer {
 header {
     background-color: var(--cor-superficie);
     border-bottom: 1px solid var(--cor-borda);
+    text-align: center;
 }
 
 header h1 {
@@ -400,6 +401,22 @@ button:focus-visible {
 
 .prioridade {
     font-weight: bold;
+}
+
+/* =========================
+   RODAPÉ
+   ========================= */
+
+footer {
+    width: 100%;
+    text-align: center;
+    margin-top: var(--espaco-4);
+
+    background-color: var(--cor-superficie);
+
+    border-top: 1px solid var(--cor-borda);
+
+    color: var(--cor-texto-secundario);
 }
 
 /* =========================
