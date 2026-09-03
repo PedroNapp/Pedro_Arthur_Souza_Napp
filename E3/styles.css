@@ -13,6 +13,10 @@
     --cor-revisao: #8a3300;
     --cor-concluida: #15803d;
 
+    /* Estado da aplicação */
+    --cor-status: #2563eb;
+    --cor-fundo-status: #eff6ff;
+
     /* Espaçamentos */
     --espaco-1: 0.5rem;
     --espaco-2: 1rem;
@@ -216,6 +220,30 @@ button:focus-visible {
     outline: 3px solid #005fcc;
     outline-offset: 2px;
 }
+
+/* =========================
+   ESTADO DA APLICAÇÃO
+   ========================= */
+
+.status-aplicacao {
+    display: flex;
+    align-items: center;
+
+    min-height: 3.5rem;
+
+    margin-top: var(--espaco-2);
+    padding: var(--espaco-2);
+
+    background-color: var(--cor-fundo-status);
+
+    border: 1px solid var(--cor-status);
+    border-radius: var(--raio);
+
+    color: var(--cor-status);
+
+    font-weight: bold;
+}
+
 
 /* =========================
    QUADRO KANBAN
@@ -512,3 +540,4 @@ footer {
         padding: var(--espaco-3);
     }
 }
+
