@@ -1,0 +1,514 @@
+:root {
+    /* Cores gerais */
+    --cor-fundo: #f8fafc;
+    --cor-superficie: #ffffff;
+    --cor-texto: #1f2937;
+    --cor-texto-secundario: #434343;
+    --cor-borda: #909090;
+    --cor-fundo-filtro: #ffffff;
+
+    /* Cores dos status */
+    --cor-a-fazer: #64748b;
+    --cor-andamento: #2563eb;
+    --cor-revisao: #8a3300;
+    --cor-concluida: #15803d;
+
+    /* Espaçamentos */
+    --espaco-1: 0.5rem;
+    --espaco-2: 1rem;
+    --espaco-3: 1.5rem;
+    --espaco-4: 2rem;
+
+    /* Bordas */
+    --raio: 0.625rem;
+}
+
+/* =========================
+   CONFIGURAÇÃO GERAL
+   ========================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+header,
+main,
+footer {
+    padding: var(--espaco-2);
+}
+
+/* =========================
+   CABEÇALHO
+   ========================= */
+
+header {
+    background-color: var(--cor-superficie);
+    border-bottom: 1px solid var(--cor-borda);
+    text-align: center;
+}
+
+header h1 {
+    max-width: 120rem;
+    margin: 0 auto;
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+}
+
+/* =========================
+   ÁREA PRINCIPAL
+   ========================= */
+
+main {
+    width: 100%;
+    max-width: 120rem;
+    margin: 0 auto;
+    overflow-x: hidden;
+}
+
+/* =========================
+   BUSCA E FILTROS
+   ========================= */
+
+main > section:first-child {
+    padding: var(--espaco-3);
+
+    background-color: var(--cor-superficie);
+
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--raio);
+
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
+}
+
+main > section:first-child h2 {
+    margin-top: 0;
+    margin-bottom: var(--espaco-3);
+    font-size: 1.35rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espaco-2);
+}
+
+/* Campo de busca */
+
+form > div {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espaco-1);
+}
+
+label, 
+legend { 
+    float: left; 
+    width: 100%; 
+    padding: 0; 
+    margin-bottom: 
+    var(--espaco-1); 
+    font-weight: bold; }
+
+input[type="search"] {
+    width: 100%;
+    min-height: 2.75rem;
+
+    padding: var(--espaco-1) var(--espaco-2);
+
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--raio);
+
+    background-color: var(--cor-superficie);
+    color: var(--cor-texto);
+
+    font-size: 1rem;
+}
+
+input[type="search"]:focus {
+    border-color: var(--cor-andamento);
+}
+
+/* =========================
+   FILTROS
+   ========================= */
+
+fieldset {
+    display: flex;
+    flex-direction: column;
+
+    gap: var(--espaco-1);
+
+    min-width: 0;
+
+    margin: 0;
+    padding: var(--espaco-2);
+
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--raio);
+
+    background-color: var(--cor-fundo-filtro);
+}
+
+fieldset legend {
+    padding: 0 var(--espaco-1);
+    color: var(--cor-texto);
+}
+
+fieldset div {
+    display: flex;
+    align-items: center;
+
+    gap: var(--espaco-1);
+
+    min-height: 2rem;
+}
+
+input[type="radio"] {
+    width: 1.5rem;
+    height: 1.5rem;
+    flex-shrink: 0;
+}
+
+/* =========================
+   BOTÃO
+   ========================= */
+
+button {
+    width: 100%;
+    min-height: 3rem;
+
+    padding: var(--espaco-1) var(--espaco-2);
+
+    border: none;
+    border-radius: var(--raio);
+
+    background-color: var(--cor-andamento);
+    color: #ffffff;
+
+    font-size: 1rem;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #1d4ed8;
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+/* =========================
+   FOCO VISÍVEL
+   ========================= */
+
+input:focus-visible,
+button:focus-visible {
+    outline: 3px solid #005fcc;
+    outline-offset: 2px;
+}
+
+/* =========================
+   QUADRO KANBAN
+   ========================= */
+
+#titulo-quadro {
+    margin-top: var(--espaco-4);
+    margin-bottom: var(--espaco-2);
+
+    font-size: 1.35rem;
+}
+
+.quadro {
+    display: grid;
+
+    grid-template-columns: 1fr;
+
+    gap: var(--espaco-2);
+}
+
+.quadro > h2 {
+    grid-column: 1 / -1;
+}
+
+/* =========================
+   COLUNAS DO KANBAN
+   ========================= */
+
+.quadro > section {
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+
+    gap: var(--espaco-2);
+
+    padding: var(--espaco-2);
+
+    background-color: var(--cor-superficie);
+
+    border: 2px solid var(--cor-borda);
+    border-radius: var(--raio);
+
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
+}
+
+.quadro > section h3 {
+    margin: 0;
+
+    padding-bottom: var(--espaco-1);
+
+    font-size: 1rem;
+}
+
+/* =========================
+   CORES DOS STATUS e colunas
+   ========================= */
+
+#titulo-a-fazer {
+    color: var(--cor-a-fazer);
+    border-bottom: 3px solid var(--cor-a-fazer);
+}
+
+#titulo-andamento {
+    color: var(--cor-andamento);
+    border-bottom: 3px solid var(--cor-andamento);
+}
+
+#titulo-revisao {
+    color: var(--cor-revisao);
+    border-bottom: 3px solid var(--cor-revisao);
+}
+
+#titulo-concluida {
+    color: var(--cor-concluida);
+    border-bottom: 3px solid var(--cor-concluida);
+}
+
+.coluna-a-fazer {
+    border-color: var(--cor-a-fazer) !important;
+}
+
+.coluna-andamento {
+    border-color: var(--cor-andamento) !important;
+}
+
+.coluna-revisao {
+    border-color: var(--cor-revisao) !important;
+}
+
+.coluna-concluida {
+    border-color: var(--cor-concluida) !important;
+}
+/* =========================
+   LISTA DE TAREFAS
+   ========================= */
+
+.quadro ul {
+    display: flex;
+    flex-direction: column;
+
+    gap: var(--espaco-2);
+
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+}
+
+.quadro li {
+    min-width: 0;
+}
+
+/* =========================
+   CARTÕES DE TAREFA
+   ========================= */
+
+.quadro article {
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+    min-height: 10rem;
+
+    gap: var(--espaco-1);
+
+    padding: var(--espaco-2);
+
+    background-color: var(--cor-superficie);
+
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--raio);
+
+    outline: 1px solid var(--cor-titulo);
+    outline-offset: 4px;
+    
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
+
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+.quadro article:hover {
+    transform: translateY(-2px);
+
+    box-shadow: 0 5px 12px rgba(15, 23, 42, 0.12);
+}
+
+/* Título */
+
+.quadro article h4 {
+    min-width: 0;
+    margin: 0 0 var(--espaco-1);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--cor-texto);
+    font-size: 1rem;
+}
+
+/* Informações */
+
+.quadro article p {
+    margin: 0;
+
+    color: var(--cor-texto-secundario);
+
+    overflow-wrap: break-word;
+}
+
+.quadro article strong {
+    color: var(--cor-texto);
+}
+
+/* Prazo na parte inferior */
+
+.quadro article .prazo {
+    margin-top: auto;
+}
+
+/* Prioridade */
+
+.prioridade {
+    font-weight: bold;
+}
+
+/* =========================
+   RODAPÉ
+   ========================= */
+
+footer {
+    width: 100%;
+    text-align: center;
+    margin-top: var(--espaco-4);
+
+    background-color: var(--cor-superficie);
+
+    border-top: 1px solid var(--cor-borda);
+
+    color: var(--cor-texto-secundario);
+}
+
+/* =========================
+   TABLET
+   ========================= */
+
+/*
+   A partir de 700px os filtros passam
+   para duas colunas para aproveitar
+   melhor o espaço horizontal.
+*/
+
+@media (min-width: 700px) {
+
+    form {
+        display: grid;
+
+        grid-template-columns: 1fr 1fr;
+
+        gap: var(--espaco-2);
+    }
+
+    form > div {
+        grid-column: 1 / -1;
+    }
+
+    form fieldset {
+        min-width: 0;
+    }
+
+    form button {
+        grid-column: 1 / -1;
+
+        width: 12rem;
+    }
+}
+
+/* =========================
+   DESKTOP
+   ========================= */
+
+/*
+   A partir de 900px as quatro colunas
+   passam a ficar lado a lado, pois
+   existe espaço suficiente para manter
+   os cartões legíveis.
+*/
+
+@media (min-width: 900px) {
+
+    .quadro {
+        grid-template-columns:
+            repeat(4, minmax(0, 1fr));
+    }
+
+    .quadro > section {
+        min-height: 28rem;
+    }
+
+    .quadro article {
+        min-height: 11rem;
+    }
+}
+
+/* =========================
+   TELAS GRANDES
+   ========================= */
+
+/*
+   A partir de 1200px aumentamos os
+   espaços laterais para aproveitar
+   melhor telas maiores.
+*/
+
+@media (min-width: 1200px) {
+
+    header,
+    main,
+    footer {
+        padding-left: var(--espaco-3);
+        padding-right: var(--espaco-3);
+    }
+
+    main > section:first-child {
+        padding: var(--espaco-3);
+    }
+
+    .quadro {
+        gap: var(--espaco-3);
+    }
+
+    .quadro > section {
+        padding: var(--espaco-3);
+    }
+}
