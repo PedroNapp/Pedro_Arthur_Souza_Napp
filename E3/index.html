@@ -1,1 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Gerenciador de Tarefas Acadêmicas</title>
+   <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+   <header>
+      <h1>Gerenciador de Tarefas Acadêmicas</h1>
+   </header>
+
+   <main>
+      <section aria-labelledby="titulo-filtros">
+         <h2 id="titulo-filtros">Busca e filtros</h2>
+
+         <form>
+            <div>
+               <label for="busca">Buscar tarefa por título:</label>
+               <input type="search" id="busca" name="busca">
+            </div>
+
+            <fieldset>
+               <legend>Filtrar por status</legend>
+
+               <div>
+                  <input type="radio" id="status-todos" name="status" value="todos" checked>
+                  <label for="status-todos">Todos</label>
+               </div>
+
+               <div>
+                  <input type="radio" id="status-fazer" name="status" value="a-fazer">
+                  <label for="status-fazer">A fazer</label>
+               </div>
+
+               <div>
+                  <input type="radio" id="status-andamento" name="status" value="em-andamento">
+                  <label for="status-andamento">Em andamento</label>
+               </div>
+
+               <div>
+                  <input type="radio" id="status-revisao" name="status" value="em-revisao">
+                  <label for="status-revisao">Em revisão</label>
+               </div>
+
+               <div>
+                  <input type="radio" id="status-concluida" name="status" value="concluida">
+                  <label for="status-concluida">Concluída</label>
+               </div>
+            </fieldset>
+
+            <fieldset>
+               <legend>Filtrar por prioridade</legend>
+
+               <div>
+                  <input type="radio" id="prioridade-todas" name="prioridade" value="todas" checked>
+                  <label for="prioridade-todas">Todas</label>
+               </div>
+
+               <div>
+                  <input type="radio" id="prioridade-baixa" name="prioridade" value="baixa">
+                  <label for="prioridade-baixa">Baixa</label>
+               </div>
+
+               <div>
+                  <input type="radio" id="prioridade-media" name="prioridade" value="media">
+                  <label for="prioridade-media">Média</label>
+               </div>
+
+               <div>
+                  <input type="radio" id="prioridade-alta" name="prioridade" value="alta">
+                  <label for="prioridade-alta">Alta</label>
+               </div>
+            </fieldset>
+
+            <button type="submit">Aplicar filtros</button>
+         </form>
+      </section>
+
+      <section class="quadro" aria-labelledby="titulo-quadro">
+         <h2 id="titulo-quadro">Quadro de tarefas</h2>
+
+         <section class="coluna-a-fazer" aria-labelledby="titulo-a-fazer">
+            <h3 id="titulo-a-fazer">A fazer</h3>
+            <ul>
+               <li>
+                  <article>
+                     <h4>Modelar banco de dados</h4>
+                     <p><strong>Projeto:</strong> Sistema Acadêmico</p>
+                     <p><strong>Responsável:</strong> Pedro Arthur</p>
+                     <p class="prioridade"><strong>Prioridade:</strong> Alta</p>
+                     <p class="prazo"><strong>Prazo:</strong> 15/08/2026</p>
+                  </article>
+               </li>
+
+               <li>
+                  <article>
+                     <h4>Desenvolver tela de login</h4>
+                     <p><strong>Projeto:</strong> Sistema de Comunicação</p>
+                     <p><strong>Responsável:</strong> Lucas</p>
+                     <p class="prioridade"><strong>Prioridade:</strong> Média</p>
+                     <p class="prazo"><strong>Prazo:</strong> 18/08/2026</p>
+                  </article>
+               </li>
+            </ul>
+         </section>
+
+         <section class="coluna-andamento" aria-labelledby="titulo-andamento">
+            <h3 id="titulo-andamento">Em andamento</h3>
+            <ul>
+               <li>
+                  <article>
+                     <h4>Implementar conexão com SQLite</h4>
+                     <p><strong>Projeto:</strong> Sistema Acadêmico</p>
+                     <p><strong>Responsável:</strong> Pedro Arthur</p>
+                     <p class="prioridade"><strong>Prioridade:</strong> Alta</p>
+                     <p class="prazo"><strong>Prazo:</strong> 20/08/2026</p>
+                  </article>
+               </li>
+
+               <li>
+                  <article>
+                     <h4>Criar interface principal</h4>
+                     <p><strong>Projeto:</strong> Gerenciador de Projetos</p>
+                     <p><strong>Responsável:</strong> Marcos</p>
+                     <p class="prioridade"><strong>Prioridade:</strong> Média</p>
+                     <p class="prazo"><strong>Prazo:</strong> 22/08/2026</p>
+                  </article>
+               </li>
+            </ul>
+         </section>
+
+         <section class="coluna-revisao" aria-labelledby="titulo-revisao">
+            <h3 id="titulo-revisao">Em revisão</h3>
+
+            <ul>
+               <li>
+                  <article>
+                     <h4>Revisar documentação do projeto</h4>
+                     <p><strong>Projeto:</strong> DevOps Engenharia de Software</p>
+                     <p><strong>Responsável:</strong> Pedro Arthur</p>
+                     <p class="prioridade"><strong>Prioridade:</strong> Baixa</p>
+                     <p class="prazo"><strong>Prazo:</strong> 25/08/2026</p>
+                  </article>
+               </li>
+
+               <li>
+                  <article>
+                     <h4>Testar funcionalidades do sistema</h4>
+                     <p><strong>Projeto:</strong> Sistema de Comunicação</p>
+                     <p><strong>Responsável:</strong> João</p>
+                     <p class="prioridade"><strong>Prioridade:</strong> Alta</p>
+                     <p class="prazo"><strong>Prazo:</strong> 27/08/2026</p>
+                  </article>
+               </li>
+            </ul>
+         </section>
+
+         <section class="coluna-concluida" aria-labelledby="titulo-concluida">
+            <h3 id="titulo-concluida">Concluída</h3>
+
+            <ul>
+               <li>
+                  <article>
+                     <h4>Definir requisitos do sistema</h4>
+                     <p><strong>Projeto:</strong> Engenharia de Requisitos</p>
+                     <p><strong>Responsável:</strong> Pedro Arthur</p>
+                     <p class="prioridade"><strong>Prioridade:</strong> Alta</p>
+                     <p class="prazo"><strong>Prazo:</strong> 05/08/2026</p>
+                  </article>
+               </li>
+
+               <li>
+                  <article>
+                     <h4>Criar estrutura inicial do projeto</h4>
+                     <p><strong>Projeto:</strong> Desenvolvimento Front-End</p>
+                     <p><strong>Responsável:</strong> Ana</p>
+                     <p class="prioridade"><strong>Prioridade:</strong> Baixa</p>
+                     <p class="prazo"><strong>Prazo:</strong> 08/08/2026</p>
+                  </article>
+               </li>
+            </ul>
+         </section>
+
+      </section>
+   </main>
+   
+   <footer>
+      <p>Pedro Arthur Souza Napp</p>
+      <p>Disciplina: Desenvolvimento Frontend — 2026.2</p>
+   </footer>
+   <script src="js\app.js"></script>
+</body>
+</html>
 
