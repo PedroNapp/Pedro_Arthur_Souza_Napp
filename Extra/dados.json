@@ -1,0 +1,76 @@
+{
+    "tarefas": [
+        {
+            "id": 1,
+            "titulo": "Modelar banco de dados",
+            "projeto": "Sistema Acadêmico",
+            "responsavel": "Pedro Arthur",
+            "status": "a-fazer",
+            "prioridade": "alta",
+            "prazo": "2026-08-15"
+        },
+        {
+            "id": 2,
+            "titulo": "Desenvolver tela de login",
+            "projeto": "Sistema de Comunicação",
+            "responsavel": "Lucas",
+            "status": "a-fazer",
+            "prioridade": "media",
+            "prazo": "2026-08-18"
+        },
+        {
+            "id": 3,
+            "titulo": "Implementar conexão com SQLite",
+            "projeto": "Sistema Acadêmico",
+            "responsavel": "Pedro Arthur",
+            "status": "em-andamento",
+            "prioridade": "alta",
+            "prazo": "2026-08-20"
+        },
+        {
+            "id": 4,
+            "titulo": "Criar interface principal",
+            "projeto": "Gerenciador de Projetos",
+            "responsavel": "Marcos",
+            "status": "em-andamento",
+            "prioridade": "media",
+            "prazo": "2026-08-22"
+        },
+        {
+            "id": 5,
+            "titulo": "Revisar documentação do projeto",
+            "projeto": "DevOps Engenharia de Software",
+            "responsavel": "Pedro Arthur",
+            "status": "em-revisao",
+            "prioridade": "baixa",
+            "prazo": "2026-08-25"
+        },
+        {
+            "id": 6,
+            "titulo": "Testar funcionalidades do sistema",
+            "projeto": "Sistema de Comunicação",
+            "responsavel": "João",
+            "status": "em-revisao",
+            "prioridade": "alta",
+            "prazo": "2026-08-27"
+        },
+        {
+            "id": 7,
+            "titulo": "Definir requisitos do sistema",
+            "projeto": "Engenharia de Requisitos",
+            "responsavel": "Pedro Arthur",
+            "status": "concluida",
+            "prioridade": "alta",
+            "prazo": "2026-08-05"
+        },
+        {
+            "id": 8,
+            "titulo": "Criar estrutura inicial do projeto",
+            "projeto": "Desenvolvimento Front-End",
+            "responsavel": "Ana",
+            "status": "concluida",
+            "prioridade": "baixa",
+            "prazo": "2026-08-08"
+        }
+    ]
+}
