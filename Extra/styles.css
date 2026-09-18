@@ -1,6 +1,10 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
 
+/* =========================
+   VARIÁVEIS
+   ========================= */
+
 :root {
     --cor-fundo: #101b2b;
     --cor-superficie: rgba(20, 34, 51, 0.88);
@@ -20,6 +24,15 @@
     --cor-status: #61b8ff;
     --cor-fundo-status: rgba(22, 91, 145, 0.25);
 
+    --ceu-topo: #162c48;
+    --ceu-baixo: #6c9db8;
+    --luz-cor: #ffd477;
+    --luz-opacidade: 0.25;
+    --cidade-cor: #253b50;
+    --cidade-frente: #172b3d;
+    --janela-cor: #f4c76b;
+    --neblina-cor: rgba(170, 207, 220, 0.15);
+
     --espaco-1: 0.5rem;
     --espaco-2: 1rem;
     --espaco-3: 1.5rem;
@@ -28,6 +41,10 @@
     --raio: 0.75rem;
     --transicao: 0.3s ease;
 }
+
+/* =========================
+   CONFIGURAÇÕES GERAIS
+   ========================= */
 
 * {
     box-sizing: border-box;
@@ -38,21 +55,17 @@ html {
 }
 
 body {
+    position: relative;
+    isolation: isolate;
+
     margin: 0;
     min-height: 100vh;
 
-    background:
-        radial-gradient(
-            ellipse at 50% -20%,
-            rgba(55, 110, 155, 0.35),
-            transparent 65%
-        ),
-        linear-gradient(
-            135deg,
-            #0d1725,
-            #162a40 50%,
-            #0c1725
-        );
+    background: linear-gradient(
+        180deg,
+        var(--ceu-topo) 0%,
+        var(--ceu-baixo) 100%
+    );
 
     color: var(--cor-texto);
 
@@ -61,10 +74,8 @@ body {
     line-height: 1.5;
 
     transition:
-        background 1s ease,
+        background 2s ease,
         color 0.5s ease;
-
-    position: relative;
 }
 
 /* Iluminação atmosférica */
@@ -76,17 +87,19 @@ body::before {
     inset: 0;
 
     pointer-events: none;
+    z-index: -2;
 
-    background:
-        radial-gradient(
-            circle at var(--luz-x, 50%) var(--luz-y, 10%),
-            rgba(245, 189, 61, 0.13),
-            transparent 28%
-        );
+    background: radial-gradient(
+        circle at var(--luz-x, 50%) var(--luz-y, 15%),
+        var(--luz-cor),
+        transparent 32%
+    );
 
-    z-index: -1;
+    opacity: var(--luz-opacidade);
 
-    transition: background 1s ease;
+    transition:
+        background 2s ease,
+        opacity 2s ease;
 }
 
 /* =========================
@@ -96,6 +109,9 @@ body::before {
 header,
 main,
 footer {
+    position: relative;
+    z-index: 1;
+
     padding: var(--espaco-2);
 }
 
@@ -111,6 +127,7 @@ header {
 
 header h1 {
     max-width: 120rem;
+
     margin: 0 auto;
 
     color: var(--cor-destaque);
@@ -123,6 +140,195 @@ header h1 {
     letter-spacing: 1px;
 
     text-shadow: 0 0 18px rgba(245, 189, 61, 0.12);
+}
+
+/* =========================
+   CICLO DE DIA E NOITE
+   ========================= */
+
+.ciclo-dia-noite {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+
+    width: fit-content;
+
+    margin: 0.25rem auto 1rem;
+    padding: 0.55rem 1rem;
+
+    background: rgba(8, 19, 31, 0.65);
+
+    border: 1px solid rgba(145, 178, 207, 0.35);
+    border-radius: 999px;
+
+    color: var(--cor-texto);
+    font-size: 0.85rem;
+}
+
+
+/* Terra no centro da órbita */
+
+.terra {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 24px;
+    height: 24px;
+
+    font-size: 21px;
+
+    z-index: 2;
+
+    filter: drop-shadow(0 0 5px rgba(80, 170, 255, 0.45));
+}
+
+.ciclo-orbita {
+    position: relative;
+
+    width: 52px;
+    height: 52px;
+
+    flex-shrink: 0;
+}
+
+.ciclo-orbita::before {
+    content: "";
+
+    position: absolute;
+    inset: 3px;
+
+    border: 1px solid rgba(245, 189, 61, 0.65);
+    border-radius: 50%;
+}
+
+.ciclo-orbita::after {
+    content: "";
+
+    position: absolute;
+    inset: 11px;
+
+    border: 1px dashed rgba(145, 178, 207, 0.4);
+    border-radius: 50%;
+}
+
+.ciclo-astro {
+    position: absolute;
+
+    top: var(--astro-y, 0px);
+    left: var(--astro-x, 18px);
+
+    width: 15px;
+    height: 15px;
+
+    border-radius: 50%;
+
+    background: var(--astro-cor, #f5bd3d);
+
+    box-shadow: 0 0 12px var(--astro-cor, #f5bd3d);
+
+    transition:
+        top 1s ease,
+        left 1s ease,
+        background 1s ease;
+}
+
+.ciclo-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.05rem;
+}
+
+.ciclo-hora {
+    color: var(--cor-destaque);
+
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
+.ciclo-periodo {
+    color: var(--cor-texto-secundario);
+
+    font-size: 0.75rem;
+}
+
+/* =========================
+   SELETOR DE CLIMA
+   ========================= */
+
+.painel-status {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+
+    width: fit-content;
+    min-width: 220px;
+
+    margin: 1rem auto;
+    padding: 1rem 1.5rem;
+
+    border: 1px solid var(--cor-borda);
+    border-radius: 12px;
+
+    background: rgba(255, 255, 255, 0.08);
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.painel-status .ciclo-dia-noite,
+.painel-status .seletor-clima {
+    margin: 0;
+}
+
+.seletor-clima {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.seletor-clima label {
+    width: auto;
+    margin: 0;
+
+    color: var(--cor-texto);
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.seletor-clima select {
+    min-width: 140px;
+    max-width: 180px;
+
+    padding: 0.5rem 0.7rem;
+
+    background: #ffffff;
+    color: #202020;
+
+    border: 1px solid rgba(145, 178, 207, 0.5);
+    border-radius: 0.5rem;
+
+    font-family: "Inter", sans-serif;
+    font-size: 0.85rem;
+
+    cursor: pointer;
+}
+
+.seletor-clima select:focus {
+    outline: none;
+
+    border-color: var(--cor-destaque);
+
+    box-shadow: 0 0 0 3px rgba(245, 189, 61, 0.15);
 }
 
 /* =========================
@@ -178,16 +384,13 @@ form {
     gap: var(--espaco-2);
 }
 
-/* Campo de busca */
-
 form > div {
     display: flex;
     flex-direction: column;
     gap: var(--espaco-1);
 }
 
-label,
-legend {
+label {
     width: 100%;
     padding: 0;
     margin-bottom: var(--espaco-1);
@@ -196,6 +399,8 @@ legend {
 
     font-weight: 600;
 }
+
+/* Campo de busca */
 
 input[type="search"] {
     width: 100%;
@@ -222,63 +427,92 @@ input[type="search"]::placeholder {
 }
 
 input[type="search"]:focus {
+    outline: none;
+
     border-color: var(--cor-destaque);
 
     box-shadow: 0 0 0 3px rgba(245, 189, 61, 0.12);
-
-    outline: none;
 }
 
-/* =========================
-   FILTROS
-   ========================= */
+/* Caixas de filtros */
 
-fieldset {
+.caixas-filtros {
+    display: grid;
+
+    grid-template-columns: 1fr;
+
+    gap: var(--espaco-2);
+}
+
+.caixa-filtro {
     display: flex;
     flex-direction: column;
-
-    gap: var(--espaco-1);
+    gap: 0.4rem;
 
     min-width: 0;
-    margin: 0;
-    padding: var(--espaco-2);
 
-    background: var(--cor-fundo-filtro);
+    padding: 0.85rem;
+
+    background: rgba(8, 19, 31, 0.55);
 
     border: 1px solid var(--cor-borda);
     border-radius: var(--raio);
 }
 
-fieldset legend {
-    padding: 0 var(--espaco-1);
+.caixa-filtro label {
+    margin: 0;
 
     color: var(--cor-destaque);
 
     font-family: "Barlow Condensed", sans-serif;
-    font-size: 1.2rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+
     text-transform: uppercase;
 }
 
-fieldset div {
-    display: flex;
-    align-items: center;
-    gap: var(--espaco-1);
+.caixa-filtro select {
+    width: 100%;
+    min-height: 2.8rem;
 
-    min-height: 2rem;
+    padding: 0.5rem 0.7rem;
+
+    background: #ffffff;
+    color: #202020;
+
+    border: 1px solid rgba(145, 178, 207, 0.5);
+    border-radius: 0.5rem;
+
+    font-family: "Inter", sans-serif;
+    font-size: 0.9rem;
+
+    cursor: pointer;
+
+    transition:
+        border-color var(--transicao),
+        box-shadow var(--transicao);
 }
 
-input[type="radio"] {
-    width: 1.15rem;
-    height: 1.15rem;
+.caixa-filtro select:focus {
+    outline: none;
 
-    flex-shrink: 0;
+    border-color: var(--cor-destaque);
 
-    accent-color: var(--cor-destaque);
+    box-shadow: 0 0 0 3px rgba(245, 189, 61, 0.15);
 }
 
 /* =========================
    BOTÕES
    ========================= */
+
+.botoes-filtros {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    gap: var(--espaco-2);
+}
 
 button {
     width: 100%;
@@ -286,11 +520,11 @@ button {
 
     padding: var(--espaco-1) var(--espaco-2);
 
-    border: 1px solid transparent;
-    border-radius: var(--raio);
-
     background: var(--cor-destaque);
     color: #182231;
+
+    border: 1px solid transparent;
+    border-radius: var(--raio);
 
     font-family: "Inter", sans-serif;
     font-size: 0.95rem;
@@ -304,6 +538,11 @@ button {
         box-shadow var(--transicao);
 }
 
+.botoes-filtros button {
+    flex: 1;
+    min-width: 0;
+}
+
 button:hover {
     background: var(--cor-destaque-hover);
 
@@ -313,8 +552,6 @@ button:hover {
 button:active {
     transform: translateY(1px);
 }
-
-/* Botão limpar */
 
 #limpar-filtros {
     background: transparent;
@@ -328,9 +565,7 @@ button:active {
     background: rgba(145, 178, 207, 0.12);
 }
 
-/* =========================
-   FOCO
-   ========================= */
+/* Foco */
 
 input:focus-visible,
 button:focus-visible {
@@ -383,16 +618,14 @@ button:focus-visible {
     grid-column: 1 / -1;
 }
 
-/* =========================
-   COLUNAS
-   ========================= */
+/* Colunas */
 
 .quadro > section {
     display: flex;
     flex-direction: column;
+    gap: var(--espaco-2);
 
     min-width: 0;
-    gap: var(--espaco-2);
 
     padding: var(--espaco-2);
 
@@ -466,7 +699,6 @@ button:focus-visible {
 .quadro ul {
     display: flex;
     flex-direction: column;
-
     gap: var(--espaco-2);
 
     margin: 0;
@@ -486,20 +718,18 @@ button:focus-visible {
 .quadro article {
     display: flex;
     flex-direction: column;
+    gap: var(--espaco-1);
 
     min-width: 0;
     min-height: 10rem;
 
-    gap: var(--espaco-1);
-
     padding: var(--espaco-2);
 
-    background:
-        linear-gradient(
-            145deg,
-            rgba(39, 59, 78, 0.9),
-            rgba(15, 29, 44, 0.92)
-        );
+    background: linear-gradient(
+        145deg,
+        rgba(39, 59, 78, 0.9),
+        rgba(15, 29, 44, 0.92)
+    );
 
     border: 1px solid rgba(145, 178, 207, 0.2);
     border-radius: 0.6rem;
@@ -522,10 +752,9 @@ button:focus-visible {
         0 0 12px rgba(245, 189, 61, 0.06);
 }
 
-/* Título */
-
 .quadro article h4 {
     min-width: 0;
+
     margin: 0 0 var(--espaco-1);
 
     overflow: hidden;
@@ -536,8 +765,6 @@ button:focus-visible {
 
     font-size: 1rem;
 }
-
-/* Informações */
 
 .quadro article p {
     margin: 0;
@@ -560,244 +787,8 @@ button:focus-visible {
 }
 
 /* =========================
-   RODAPÉ
+   AMBIENTE SEMIURBANO
    ========================= */
-
-footer {
-    width: 100%;
-
-    margin-top: var(--espaco-4);
-
-    background: rgba(9, 20, 33, 0.8);
-
-    border-top: 1px solid rgba(245, 189, 61, 0.3);
-
-    color: var(--cor-texto-secundario);
-
-    text-align: center;
-}
-
-/* =========================
-   CICLO DE DIA E NOITE
-   ========================= */
-
-.ciclo-dia-noite {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-
-    width: fit-content;
-
-    margin: 0 auto 1rem;
-
-    padding: 0.55rem 1rem;
-
-    background: rgba(8, 19, 31, 0.65);
-
-    border: 1px solid rgba(145, 178, 207, 0.35);
-    border-radius: 999px;
-
-    color: var(--cor-texto);
-
-    font-size: 0.85rem;
-}
-
-.ciclo-orbita {
-    position: relative;
-
-    width: 52px;
-    height: 52px;
-
-    flex-shrink: 0;
-}
-
-.ciclo-orbita::before {
-    content: "";
-
-    position: absolute;
-    inset: 3px;
-
-    border: 1px solid rgba(245, 189, 61, 0.65);
-    border-radius: 50%;
-}
-
-.ciclo-orbita::after {
-    content: "";
-
-    position: absolute;
-    inset: 11px;
-
-    border: 1px dashed rgba(145, 178, 207, 0.4);
-    border-radius: 50%;
-}
-
-.ciclo-astro {
-    position: absolute;
-
-    top: var(--astro-y, 0px);
-    left: var(--astro-x, 18px);
-
-    width: 15px;
-    height: 15px;
-
-    border-radius: 50%;
-
-    background: var(--astro-cor, #f5bd3d);
-
-    box-shadow: 0 0 12px var(--astro-cor, #f5bd3d);
-
-    transition:
-        top 1s ease,
-        left 1s ease,
-        background 1s ease;
-}
-
-.ciclo-info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.05rem;
-}
-
-.ciclo-hora {
-    color: var(--cor-destaque);
-
-    font-size: 0.95rem;
-    font-weight: 700;
-}
-
-.ciclo-periodo {
-    color: var(--cor-texto-secundario);
-
-    font-size: 0.75rem;
-}
-
-/* =========================
-   RESPONSIVIDADE
-   ========================= */
-
-@media (min-width: 700px) {
-
-    form {
-        display: grid;
-
-        grid-template-columns: 1fr 1fr;
-
-        gap: var(--espaco-2);
-    }
-
-    form > div {
-        grid-column: 1 / -1;
-    }
-
-    form button {
-        width: 12rem;
-    }
-
-    form button[type="submit"] {
-        grid-column: 1;
-    }
-
-    form #limpar-filtros {
-        grid-column: 2;
-    }
-}
-
-@media (min-width: 900px) {
-
-    .quadro {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-
-    .quadro > section {
-        min-height: 28rem;
-    }
-
-    .quadro article {
-        min-height: 11rem;
-    }
-}
-
-@media (min-width: 1200px) {
-
-    header,
-    main,
-    footer {
-        padding-left: var(--espaco-3);
-        padding-right: var(--espaco-3);
-    }
-
-    main > section:first-child {
-        padding: var(--espaco-3);
-    }
-
-    .quadro {
-        gap: var(--espaco-3);
-    }
-
-    .quadro > section {
-        padding: var(--espaco-3);
-    }
-}
-
-
-/* =========================================
-   AMBIENTE SEMIURBANO DINÂMICO
-   ========================================= */
-
-:root {
-    --ceu-topo: #162c48;
-    --ceu-baixo: #6c9db8;
-    --luz-cor: #ffd477;
-    --luz-opacidade: 0.25;
-    --cidade-cor: #253b50;
-    --cidade-frente: #172b3d;
-    --janela-cor: #f4c76b;
-    --neblina-cor: rgba(170, 207, 220, 0.15);
-}
-
-/* Fundo com iluminação dinâmica */
-
-body {
-    position: relative;
-    isolation: isolate;
-
-    background:
-        linear-gradient(
-            180deg,
-            var(--ceu-topo) 0%,
-            var(--ceu-baixo) 100%
-        );
-
-    transition: background 2s ease;
-}
-
-/* Substitui o brilho anterior */
-
-body::before {
-    content: "";
-
-    position: fixed;
-    inset: 0;
-
-    pointer-events: none;
-
-    z-index: -2;
-
-    background:
-        radial-gradient(
-            circle at var(--luz-x, 50%) var(--luz-y, 15%),
-            var(--luz-cor),
-            transparent 32%
-        );
-
-    opacity: var(--luz-opacidade);
-
-    transition:
-        background 2s ease,
-        opacity 2s ease;
-}
-
-/* Camada de objetos urbanos */
 
 .ambiente {
     position: fixed;
@@ -808,17 +799,14 @@ body::before {
     overflow: hidden;
     pointer-events: none;
 
-    background:
-        linear-gradient(
-            180deg,
-            transparent 55%,
-            var(--neblina-cor) 100%
-        );
+    background: linear-gradient(
+        180deg,
+        transparent 55%,
+        var(--neblina-cor) 100%
+    );
 }
 
-/* =========================================
-   SOL E LUA
-   ========================================= */
+/* Sol e lua */
 
 .sol,
 .lua {
@@ -883,9 +871,7 @@ body::before {
     transition: background 2s ease;
 }
 
-/* =========================================
-   ESTRELAS
-   ========================================= */
+/* Estrelas */
 
 .estrelas {
     position: absolute;
@@ -909,9 +895,7 @@ body::before {
     box-shadow: 0 0 8px rgba(180, 220, 255, 0.8);
 }
 
-/* =========================================
-   CIDADE SEMIURBANA
-   ========================================= */
+/* Cidade */
 
 .cidade {
     position: absolute;
@@ -919,20 +903,16 @@ body::before {
     bottom: 0;
     left: 0;
 
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 5px;
+
     width: 100%;
     height: 30%;
 
-    display: flex;
-    align-items: flex-end;
-
-    justify-content: center;
-
-    gap: 5px;
-
     opacity: 0.95;
 }
-
-/* Prédios */
 
 .predio {
     position: relative;
@@ -952,19 +932,15 @@ body::before {
 
     border-top: 2px solid rgba(180, 210, 225, 0.12);
 
-    box-shadow:
-        0 -10px 30px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.04);
 
     transition: background 2s ease;
 }
-
-/* Janelas */
 
 .predio::before {
     content: "";
 
     position: absolute;
-
     inset: 12px 7px;
 
     background:
@@ -986,8 +962,6 @@ body::before {
         background 2s ease;
 }
 
-/* Antenas e detalhes */
-
 .predio::after {
     content: "";
 
@@ -1002,10 +976,6 @@ body::before {
     background: rgba(35, 53, 70, 0.75);
 }
 
-/* =========================================
-   PRÉDIOS DISTANTES
-   ========================================= */
-
 .cidade::before {
     content: "";
 
@@ -1017,36 +987,35 @@ body::before {
     width: 100%;
     height: 65%;
 
-    background:
-        linear-gradient(
-            90deg,
-            transparent 0 4%,
-            var(--cidade-cor) 4% 10%,
-            transparent 10% 14%,
-            var(--cidade-cor) 14% 22%,
-            transparent 22% 26%,
-            var(--cidade-cor) 26% 33%,
-            transparent 33% 38%,
-            var(--cidade-cor) 38% 46%,
-            transparent 46% 51%,
-            var(--cidade-cor) 51% 60%,
-            transparent 60% 64%,
-            var(--cidade-cor) 64% 72%,
-            transparent 72% 77%,
-            var(--cidade-cor) 77% 86%,
-            transparent 86% 90%,
-            var(--cidade-cor) 90% 97%,
-            transparent 97%
-        );
+    background: linear-gradient(
+        90deg,
+        transparent 0 4%,
+        var(--cidade-cor) 4% 10%,
+        transparent 10% 14%,
+        var(--cidade-cor) 14% 22%,
+        transparent 22% 26%,
+        var(--cidade-cor) 26% 33%,
+        transparent 33% 38%,
+        var(--cidade-cor) 38% 46%,
+        transparent 46% 51%,
+        var(--cidade-cor) 51% 60%,
+        transparent 60% 64%,
+        var(--cidade-cor) 64% 72%,
+        transparent 72% 77%,
+        var(--cidade-cor) 77% 86%,
+        transparent 86% 90%,
+        var(--cidade-cor) 90% 97%,
+        transparent 97%
+    );
 
     opacity: 0.4;
 
     z-index: -1;
 }
 
-/* =========================================
+/* =========================
    TEMAS DE ILUMINAÇÃO
-   ========================================= */
+   ========================= */
 
 body.manha {
     --ceu-topo: #6b9fc2;
@@ -1108,33 +1077,258 @@ body.noite .predio::before {
     opacity: 0.65;
 }
 
-/* =========================================
-   CAMADAS DE INTERFACE
-   ========================================= */
+/* =========================
+   ATMOSFERA DE CHUVA
+   ========================= */
 
-header,
-main,
-footer {
-    position: relative;
-    z-index: 1;
+body.clima-chuva::after,
+body.clima-tempestade::after {
+    content: "";
+
+    position: fixed;
+    inset: 0;
+
+    pointer-events: none;
+
+    background: linear-gradient(
+        180deg,
+        rgba(15, 28, 48, 0.48),
+        rgba(20, 35, 52, 0.62)
+    );
+
+    z-index: -1;
+
+    transition:
+        background 2s ease,
+        opacity 2s ease;
 }
 
-/* Mantém a interface legível */
-
-header,
-main > section:first-child,
-.quadro > section,
-.status-aplicacao,
-footer {
-    backdrop-filter: blur(10px);
+body.manha.clima-chuva,
+body.tarde.clima-chuva,
+body.entardecer.clima-chuva {
+    --ceu-topo: #263b52;
+    --ceu-baixo: #526c7d;
+    --luz-cor: #9eb5c5;
+    --luz-opacidade: 0.12;
+    --cidade-cor: #263746;
+    --cidade-frente: #1b2937;
+    --janela-cor: #c2b88c;
+    --neblina-cor: rgba(100, 125, 145, 0.18);
 }
 
-/* =========================================
+body.clima-chuva .sol {
+    opacity: 0.25;
+    filter: grayscale(0.35);
+}
+
+body.clima-tempestade::after {
+    background: linear-gradient(
+        180deg,
+        rgba(8, 15, 28, 0.65),
+        rgba(15, 25, 40, 0.75)
+    );
+}
+
+body.clima-tempestade .sol {
+    opacity: 0.08;
+}
+
+/* Chuva */
+
+.clima {
+    position: fixed;
+    inset: 0;
+
+    overflow: hidden;
+    pointer-events: none;
+
+    z-index: 0;
+}
+
+.clima .chuva {
+    position: absolute;
+    inset: 0;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    background-image:
+        repeating-linear-gradient(
+            108deg,
+            transparent 0,
+            transparent 110px,
+            rgba(190, 220, 255, 0.30) 111px,
+            transparent 113px,
+            transparent 290px
+        ),
+        repeating-linear-gradient(
+            105deg,
+            transparent 0,
+            transparent 175px,
+            rgba(200, 225, 255, 0.22) 176px,
+            transparent 178px,
+            transparent 390px
+        ),
+        repeating-linear-gradient(
+            110deg,
+            transparent 0,
+            transparent 260px,
+            rgba(180, 215, 245, 0.16) 261px,
+            transparent 263px,
+            transparent 550px
+        );
+
+    background-size:
+        300px 350px,
+        450px 480px,
+        650px 600px;
+
+    background-position:
+        0 0,
+        120px -100px,
+        -80px 150px;
+}
+
+/* Movimento contínuo da chuva */
+
+body.clima-chuva .chuva,
+body.clima-tempestade .chuva {
+    opacity: 0.8;
+
+    animation: queda-chuva 1.5s linear infinite;
+}
+
+@keyframes queda-chuva {
+    from {
+        background-position:
+            0 -250px,
+            120px -400px,
+            -80px -150px;
+    }
+
+    to {
+        background-position:
+            -75px 350px,
+            45px 480px,
+            -155px 500px;
+    }
+}
+
+/* Tempestade */
+
+body.clima-tempestade .chuva {
+    opacity: 1;
+
+    background-image:
+        repeating-linear-gradient(
+            108deg,
+            transparent 0,
+            transparent 80px,
+            rgba(190, 220, 255, 0.38) 81px,
+            transparent 83px,
+            transparent 230px
+        ),
+        repeating-linear-gradient(
+            105deg,
+            transparent 0,
+            transparent 140px,
+            rgba(210, 230, 255, 0.25) 141px,
+            transparent 143px,
+            transparent 320px
+        );
+
+    background-size:
+        260px 330px,
+        420px 470px;
+
+    animation-duration: 0.4s;
+}
+
+/* =========================
+   RODAPÉ
+   ========================= */
+
+footer {
+    width: 100%;
+
+    margin-top: var(--espaco-4);
+
+    background: rgba(9, 20, 33, 0.8);
+
+    border-top: 1px solid rgba(245, 189, 61, 0.3);
+
+    color: var(--cor-texto-secundario);
+
+    text-align: center;
+}
+
+/* =========================
    RESPONSIVIDADE
-   ========================================= */
+   ========================= */
 
-@media (max-width: 700px) {
+@media (min-width: 700px) {
+    form {
+        display: grid;
 
+        grid-template-columns: 1fr 1fr;
+
+        gap: var(--espaco-2);
+    }
+
+    form > div {
+        grid-column: 1 / -1;
+    }
+
+    .caixas-filtros {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    form .botoes-filtros {
+        grid-column: 1 / -1;
+    }
+
+    form button {
+        width: auto;
+    }
+}
+
+@media (min-width: 900px) {
+    .quadro {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .quadro > section {
+        min-height: 28rem;
+    }
+
+    .quadro article {
+        min-height: 11rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    header,
+    main,
+    footer {
+        padding-left: var(--espaco-3);
+        padding-right: var(--espaco-3);
+    }
+
+    main > section:first-child {
+        padding: var(--espaco-3);
+    }
+
+    .quadro {
+        gap: var(--espaco-3);
+    }
+
+    .quadro > section {
+        padding: var(--espaco-3);
+    }
+}
+
+@media (max-width: 600px) {
     .sol {
         width: 70px;
         height: 70px;
@@ -1151,5 +1345,12 @@ footer {
 
     .predio {
         max-width: 60px;
+    }
+}
+
+@media (max-width: 450px) {
+    .botoes-filtros button {
+        font-size: 0.85rem;
+        padding: 0.6rem;
     }
 }

@@ -1,26 +1,48 @@
 
-const ciclo = document.createElement("div");
+/* =========================
+   ELEMENTOS DO HTML
+   ========================= */
 
-ciclo.className = "ciclo-dia-noite";
-
-ciclo.innerHTML = `
-    <div class="ciclo-orbita">
-        <div class="ciclo-astro"></div>
-    </div>
-
-    <div class="ciclo-info">
-        <span class="ciclo-hora"></span>
-        <span class="ciclo-periodo"></span>
-    </div>
-`;
-
-document.querySelector("header").appendChild(ciclo);
+const ciclo = document.querySelector(".ciclo-dia-noite");
 
 const horaElemento = ciclo.querySelector(".ciclo-hora");
 const periodoElemento = ciclo.querySelector(".ciclo-periodo");
 const astro = ciclo.querySelector(".ciclo-astro");
 
+const selecaoClima = document.querySelector("#selecao-clima");
+
+
+/* =========================
+   ALTERAÇÃO DO CLIMA
+   ========================= */
+
+selecaoClima.addEventListener("change", () => {
+
+    document.body.classList.remove(
+        "clima-chuva",
+        "clima-neblina",
+        "clima-tempestade"
+    );
+
+    const climaSelecionado = selecaoClima.value;
+
+    if (climaSelecionado) {
+
+        document.body.classList.add(
+            `clima-${climaSelecionado}`
+        );
+
+    }
+
+});
+
+
+/* =========================
+   CICLO DE DIA E NOITE
+   ========================= */
+
 function atualizarCiclo() {
+
     const agora = new Date();
 
     const hora = agora.getHours();
@@ -40,7 +62,13 @@ function atualizarCiclo() {
     let x = 18;
     let y = 0;
 
+
+    /* =========================
+       MANHÃ
+       ========================= */
+
     if (tempo >= 6 && tempo < 12) {
+
         periodo = "DIA • MANHÃ";
         cor = "#f5bd3d";
 
@@ -59,14 +87,20 @@ function atualizarCiclo() {
             `${30 - progresso * 15}%`
         );
 
+
+    /* =========================
+       TARDE
+       ========================= */
+
     } else if (tempo >= 12 && tempo < 18) {
+
         periodo = "DIA • TARDE";
         cor = "#ffad4a";
 
         const progresso = (tempo - 12) / 6;
 
         x = 34 + progresso * 8;
-        y = 0 + progresso * 16;
+        y = progresso * 16;
 
         document.body.style.setProperty(
             "--luz-x",
@@ -78,7 +112,13 @@ function atualizarCiclo() {
             `${15 + progresso * 25}%`
         );
 
+
+    /* =========================
+       NOITE
+       ========================= */
+
     } else {
+
         periodo = "NOITE";
         cor = "#79baff";
 
@@ -94,14 +134,37 @@ function atualizarCiclo() {
             "--luz-y",
             "5%"
         );
+
     }
+
+
+    /* =========================
+       ATUALIZA ELEMENTOS
+       ========================= */
 
     periodoElemento.textContent = periodo;
 
-    astro.style.setProperty("--astro-x", `${x}px`);
-    astro.style.setProperty("--astro-y", `${y}px`);
-    astro.style.setProperty("--astro-cor", cor);
+    astro.style.setProperty(
+        "--astro-x",
+        `${x}px`
+    );
+
+    astro.style.setProperty(
+        "--astro-y",
+        `${y}px`
+    );
+
+    astro.style.setProperty(
+        "--astro-cor",
+        cor
+    );
+
 }
+
+
+/* =========================
+   INICIALIZAÇÃO
+   ========================= */
 
 atualizarCiclo();
 

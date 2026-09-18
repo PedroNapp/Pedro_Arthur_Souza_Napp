@@ -9,81 +9,106 @@
 </head>
 
 <body>
+   
+   
+   <div class="clima" id="clima" aria-hidden="true">
+      <div class="chuva"></div>
+      <div class="neblina"></div>
+      <div class="relampago"></div>
+   </div>
+<!-- Sistema de clima -->
 
    <header>
       <h1>Gerenciador de Tarefas Acadêmicas</h1>
+
+      <!-- Caixa do horário e clima -->
+      <div class="painel-status">
+
+         <!-- Ciclo de dia e noite -->
+         <div class="ciclo-dia-noite">
+
+               <div class="ciclo-orbita">
+                  <div class="terra">🌍</div>
+                  <div class="ciclo-astro"></div>
+               </div>
+
+               <div class="ciclo-info">
+                  <span class="ciclo-hora"></span>
+                  <span class="ciclo-periodo"></span>
+               </div>
+
+         </div>
+
+         <!-- Seletor de clima -->
+         <div class="seletor-clima">
+
+               <label for="selecao-clima">Clima</label>
+
+               <select id="selecao-clima">
+                  <option value="">Sem clima</option>
+                  <option value="chuva">🌧️ Chuva</option>
+                  <option value="neblina">🌫️ Neblina</option>
+                  <option value="tempestade">⛈️ Tempestade</option>
+               </select>
+
+         </div>
+
+      </div>
    </header>
 
    <main>
 
+      
       <section aria-labelledby="titulo-filtros">
          <h2 id="titulo-filtros">Busca e filtros</h2>
 
          <form>
 
-            <div>
-               <label for="busca">Buscar tarefa por título:</label>
-               <input type="search" id="busca" name="busca">
+            <!-- Busca -->
+            <div class="campo-busca">
+                  <label for="busca">Buscar tarefa por título:</label>
+                  <input
+                     type="search"
+                     id="busca"
+                     name="busca"
+                     placeholder="Digite o título da tarefa..."
+                  >
             </div>
 
-            <fieldset>
-               <legend>Filtrar por status</legend>
+            <!-- Caixa de filtros -->
+            <div class="caixas-filtros">
 
-               <div>
-                  <input type="radio" id="status-todos" name="status" value="todos" checked>
-                  <label for="status-todos">Todos</label>
-               </div>
+                  <div class="caixa-filtro">
+                     <label for="status">Filtrar por status:</label>
 
-               <div>
-                  <input type="radio" id="status-fazer" name="status" value="a-fazer">
-                  <label for="status-fazer">A fazer</label>
-               </div>
+                     <select id="status" name="status">
+                        <option value="todos">Todos</option>
+                        <option value="a-fazer">A fazer</option>
+                        <option value="em-andamento">Em andamento</option>
+                        <option value="em-revisao">Em revisão</option>
+                        <option value="concluida">Concluída</option>
+                     </select>
+                  </div>
 
-               <div>
-                  <input type="radio" id="status-andamento" name="status" value="em-andamento">
-                  <label for="status-andamento">Em andamento</label>
-               </div>
+                  <div class="caixa-filtro">
+                     <label for="prioridade">Filtrar por prioridade:</label>
 
-               <div>
-                  <input type="radio" id="status-revisao" name="status" value="em-revisao">
-                  <label for="status-revisao">Em revisão</label>
-               </div>
+                     <select id="prioridade" name="prioridade">
+                        <option value="todas">Todas</option>
+                        <option value="baixa">Baixa</option>
+                        <option value="media">Média</option>
+                        <option value="alta">Alta</option>
+                     </select>
+                  </div>
 
-               <div>
-                  <input type="radio" id="status-concluida" name="status" value="concluida">
-                  <label for="status-concluida">Concluída</label>
-               </div>
+            </div>
 
-            </fieldset>
+            <!-- Botões -->
+            <div class="botoes-filtros">
+                  <button type="submit">Aplicar filtros</button>
 
-            <fieldset>
-               <legend>Filtrar por prioridade</legend>
-
-               <div>
-                  <input type="radio" id="prioridade-todas" name="prioridade" value="todas" checked>
-                  <label for="prioridade-todas">Todas</label>
-               </div>
-
-               <div>
-                  <input type="radio" id="prioridade-baixa" name="prioridade" value="baixa">
-                  <label for="prioridade-baixa">Baixa</label>
-               </div>
-
-               <div>
-                  <input type="radio" id="prioridade-media" name="prioridade" value="media">
-                  <label for="prioridade-media">Média</label>
-               </div>
-
-               <div>
-                  <input type="radio" id="prioridade-alta" name="prioridade" value="alta">
-                  <label for="prioridade-alta">Alta</label>
-               </div>
-
-            </fieldset>
-
-            <button type="submit">Aplicar filtros</button>
-
-            <button type="button" id="limpar-filtros"> Limpar filtros </button>
+                  <button type="button" id="limpar-filtros">Limpar filtros </button>
+            </div>
 
          </form>
       </section>
